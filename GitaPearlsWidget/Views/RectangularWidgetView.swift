@@ -10,18 +10,18 @@ struct RectangularWidgetView: View {
                 .font(.caption)
                 .fontWeight(.semibold)
             
-            Text(truncatedMeaning)
-                .font(.caption)
-                .lineLimit(3)
+            Text(verse.meaning)
+                .font(.caption2)
+                .lineLimit(4)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .widgetURL(URL(string: "gitapearls://verse/\(verse.id)"))
     }
-    
-    private var truncatedMeaning: String {
-        let firstSentence = verse.meaning.components(separatedBy: ". ").first ?? verse.meaning
-        if firstSentence.count > 80 {
-            return String(firstSentence.prefix(80)) + "..."
-        }
-        return firstSentence + "."
+}
+
+struct RectangularWidgetView_Previews: PreviewProvider {
+    static var previews: some View {
+        RectangularWidgetView(verse: Verse.sample)
+            .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
     }
 }

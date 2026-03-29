@@ -10,3 +10,10 @@ struct InlineWidgetView: View {
             .widgetURL(URL(string: "gitapearls://verse/\(verse.id)"))
     }
 }
+
+struct InlineWidgetView_Previews: PreviewProvider {
+    static var previews: some View {
+        InlineWidgetView(verse: Verse.sample)
+            .previewContext(WidgetPreviewContext(family: .accessoryInline))
+    }
+}

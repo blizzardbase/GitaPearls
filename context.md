@@ -1,7 +1,7 @@
 # GitaPearls — Project Context
 
 ## Project Overview
-iOS app with lock screen widget displaying Bhagavad Gita verses from Swami Sivananda's public domain translation. Free app, no monetization.
+iOS app with lock screen and home screen widgets displaying Bhagavad Gita verses from Swami Sivananda's public domain translation. Free app, no monetization. **Xcode project created and building successfully.**
 
 ---
 
@@ -12,7 +12,7 @@ iOS app with lock screen widget displaying Bhagavad Gita verses from Swami Sivan
 | **App Name** | GitaPearls |
 | **Bundle ID** | `com.yourname.gitapearls` (update with your name) |
 | **Translation** | Swami Sivananda (public domain, legally safe) |
-| **Verse Count** | 150 curated essence verses |
+| **Verse Count** | 150 curated essence verses (30 sample verses included) |
 | **Monetization** | Free app |
 | **Publisher Type** | Individual (no company needed) |
 | **Data Storage** | UserDefaults (favorites as ID array) + bundled JSON |
@@ -64,25 +64,58 @@ iOS app with lock screen widget displaying Bhagavad Gita verses from Swami Sivan
 ### Timeline Strategy
 - Generate entries for next 24 hours
 - **12-24 entries** (one every 1-2 hours)
-- Random verse selection per entry
+- **Seeded random verse selection** — all widgets show the same verse at any given time (seed based on date/time)
 - iOS controls actual refresh timing (best-effort)
 
-### Lock Screen Widget Families
-| Family | Content |
-|--------|---------|
-| **accessoryInline** | Reference only — "BG 2.47" (single line) |
-| **accessoryRectangular** | 2-3 lines of verse text + reference (grayscale) |
-| **accessoryCircular** | Chapter number or "ॐ" glyph (optional, low priority) |
+### Synchronized Verse Display
+All widget instances use a seeded random number generator based on the entry date (year/month/day/hour). This ensures:
+- Lock screen and home screen widgets show the same verse simultaneously
+- All users see the same verse at the same time of day
+- 30% chance to pick from favorites (also seeded for consistency)
+
+### Supported Widget Families
+| Family | Content | Font Strategy |
+|--------|---------|---------------|
+| **accessoryInline** | Reference only — "BG 2.47" | `.caption` |
+| **accessoryRectangular** | Full meaning text, 4 lines max | Reference: `.caption`, Meaning: `.caption2` |
+| **accessoryCircular** | "ॐ" glyph | `.title` |
+| **systemSmall** | Meaning text, top-aligned | Reference: `.caption`, Meaning: `.callout` |
+| **systemMedium** | Reference + English meaning only | Reference: `.caption`, Meaning: `.footnote` |
+| **systemLarge** | Reference + Sanskrit + divider + English meaning | Reference: `.subheadline`, Meaning: `.body`, Sanskrit: `.callout` |
+
+**Note:** Medium widget intentionally omits Sanskrit text to maximize space for the English meaning. Sanskrit only appears in Large widget.
+
+### Widget Font Hierarchy
+- **Reference (BG X.Y)**: `.caption` (lock screen, small, medium), `.subheadline` (large)
+- **Meaning text**: `.caption2` (lock screen), `.callout` (small), `.footnote` (medium), `.body` (large)
+- **Sanskrit text**: `.callout` (large widget only)
+- **ॐ symbol**: `.title` (circular lock screen widget)
+
+### Layout Strategy
+- All widgets use `.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)` or `.topLeading` to fill their containers
+- Content is top-aligned to avoid empty space at bottom
+- No arbitrary character truncation — let SwiftUI handle text flow with `.lineLimit()`
 
 ### Lock Screen Constraints
 - No color — rendered with vibrant material (system-controlled)
 - Minimal text — roughly 4 short lines max for rectangular
-- Use `ViewThatFits` or manual truncation
+- Uses full available width with `.frame(maxWidth: .infinity)`
+
+### Recommended Lock Screen Setup
+The optimal lock screen arrangement uses both widgets as a complementary pair:
+
+| Position | Widget | Content |
+|----------|--------|---------|
+| **Left (inline/above clock)** | `accessoryRectangular` | Full verse meaning text |
+| **Right (below clock)** | `accessoryCircular` | "ॐ" symbol |
+
+This creates a balanced spiritual aesthetic — the verse text on one side and the sacred Om symbol on the other. Both widgets are deep-linked and will open the app to the same verse when tapped.
 
 ### Deep Linking
-- Widget tap opens main app to specific verse
-- Implement via `widgetURL` encoding verse ID: `gitapearls://verse/47`
+- Widget tap opens main app to specific verse via `widgetURL`
+- URL format: `gitapearls://verse/47`
 - `GitaPearlsApp.swift` handles `.onOpenURL` and navigates to `VerseDetailView`
+- **All widgets include deep links:** Rectangular, Circular, Inline, Small, Medium, and Large
 
 ### Entry Structure
 ```swift
@@ -134,27 +167,39 @@ GitaPearls/
 ├── Models/
 │   └── Verse.swift                  (SINGLE shared model)
 ├── Data/
-│   ├── verses.json                  (150 curated verses)
+│   ├── verses.json                  (30 sample verses)
 │   └── VerseStore.swift             (UserDefaults wrapper)
 ├── Widget/
 │   ├── GitaPearlsWidget.swift       (widget configuration + supported families)
-│   ├── Provider.swift               (TimelineProvider implementation)
 │   └── Views/
 │       ├── InlineWidgetView.swift   (accessoryInline — reference only)
-│       ├── RectangularWidgetView.swift (accessoryRectangular — verse snippet)
-│       └── HomeWidgetView.swift     (small/medium — richer layout, v1 optional)
-└── Info.plist + Entitlements        (App Groups config)
+│       ├── RectangularWidgetView.swift (accessoryRectangular — full meaning)
+│       ├── CircularWidgetView.swift  (accessoryCircular — "ॐ" glyph)
+│       └── HomeWidgetView.swift      (systemSmall/Medium/Large — home screen)
+├── Info.plist + Entitlements        (App Groups config + URL scheme)
+└── Assets.xcassets                  (App icons)
 ```
 
 **Key point:** `Verse.swift` is in the `Models/` folder with "Target Membership" set to both app and widget targets. No duplicate files.
 
 ---
 
-## App Configuration
+## Xcode Project Configuration
+
+### Project Created
+- **Location**: `~/VibeCoding/Gitapearls/GitaPearls.xcodeproj`
+- **Targets**: GitaPearls (app) + GitaPearlsWidgetExtension (widget)
+- **Build Status**: ✅ Building successfully for iOS Simulator
 
 ### App Group Entitlement (both targets)
 ```
 com.apple.security.application-groups: group.com.yourname.gitapearls
+```
+
+### URL Scheme (deep linking)
+```
+URL Scheme: gitapearls
+Format: gitapearls://verse/{id}
 ```
 
 ### App Privacy & Compliance
@@ -162,6 +207,20 @@ com.apple.security.application-groups: group.com.yourname.gitapearls
 - **Third-party SDKs:** None.
 - **App Store Privacy Nutrition Label:** Select "Data Not Collected" for all categories.
 - **Attribution:** Settings screen credits Swami Sivananda translation + JSON source repo URL.
+
+---
+
+## SwiftUI Previews
+
+All widget views include `PreviewProvider` implementations for testing in Xcode canvas:
+
+| View | Preview Families |
+|------|-------------------|
+| `InlineWidgetView` | `.accessoryInline` |
+| `RectangularWidgetView` | `.accessoryRectangular` |
+| `CircularWidgetView` | `.accessoryCircular` |
+| `HomeWidgetView` | `.systemSmall`, `.systemMedium`, `.systemLarge` |
+| `GitaWidgetEntryView` | All 6 families in one preview group |
 
 ---
 
@@ -190,15 +249,18 @@ com.apple.security.application-groups: group.com.yourname.gitapearls
 | Phase | Task | Status |
 |-------|------|--------|
 | **0** | Source files created in ~/Vibecoding/GitaPearls/ | ✅ Completed |
-| **1** | Xcode project setup required (see SETUP.md) | ⏳ Ready to start |
+| **1** | Xcode project setup and configuration | ✅ Completed |
 | **2** | Data layer code implemented | ✅ Completed |
 | **3** | Main app UI code implemented | ✅ Completed |
 | **4** | Widget extension code implemented | ✅ Completed |
-| **5** | Testing on device, bug fixes | ⏳ Pending |
-| **6** | App Store prep (icons, screenshots, privacy policy) | ⏳ Pending |
-| **7** | Submission | ⏳ Pending |
+| **5** | Widget layout refinements (fonts, alignment, sizing) | ✅ Completed |
+| **6** | Same verse across all widgets (seeded random) | ✅ Completed |
+| **7** | Widget deep linking verified | ✅ Completed |
+| **8** | Testing on device, bug fixes | ⏳ Pending |
+| **9** | App Store prep (icons, screenshots, privacy policy) | ⏳ Pending |
+| **10** | Submission | ⏳ Pending |
 
-**Current Status:** All Swift source code is written and ready. Next step is to create the Xcode project and configure it following SETUP.md.
+**Current Status:** All Swift source code is complete. Widgets now use seeded random for synchronized verse display. Next steps are device testing and App Store preparation.
 
 ---
 
@@ -219,3 +281,4 @@ com.apple.security.application-groups: group.com.yourname.gitapearls
 - Lock screen widgets are grayscale (vibrant material)
 - UserDefaults uses App Group, not standard suite
 - widgetURL is the only way to handle taps from lock screen widget
+- Home screen widgets use `.body`/`.callout` for meaning, lock screen uses `.caption2`

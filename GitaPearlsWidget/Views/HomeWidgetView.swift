@@ -11,6 +11,8 @@ struct HomeWidgetView: View {
             SmallHomeWidget(entry: entry)
         case .systemMedium:
             MediumHomeWidget(entry: entry)
+        case .systemLarge:
+            LargeHomeWidget(entry: entry)
         default:
             SmallHomeWidget(entry: entry)
         }
@@ -27,20 +29,14 @@ struct SmallHomeWidget: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.secondary)
             
-            Text(truncatedMeaning)
-                .font(.body)
-                .lineLimit(4)
+            Text(entry.verse.meaning)
+                .font(.callout)
+                .lineLimit(8)
+            
+            Spacer(minLength: 0)
         }
         .padding()
         .widgetURL(URL(string: "gitapearls://verse/\(entry.verse.id)"))
-    }
-    
-    private var truncatedMeaning: String {
-        let firstSentence = entry.verse.meaning.components(separatedBy: ". ").first ?? entry.verse.meaning
-        if firstSentence.count > 100 {
-            return String(firstSentence.prefix(100)) + "..."
-        }
-        return firstSentence + "."
     }
 }
 
@@ -48,27 +44,73 @@ struct MediumHomeWidget: View {
     let entry: GitaEntry
     
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(entry.verse.reference)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.secondary)
-                
-                Text(entry.verse.meaning)
-                    .font(.body)
-                    .lineLimit(5)
-                
-                Spacer()
-                
-                Text("Tap to read more →")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-            }
+        VStack(alignment: .leading, spacing: 6) {
+            Text(entry.verse.reference)
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundColor(.secondary)
             
-            Spacer()
+            Text(entry.verse.meaning)
+                .font(.footnote)
+                .lineLimit(8)
+            
+            Spacer(minLength: 0)
         }
         .padding()
         .widgetURL(URL(string: "gitapearls://verse/\(entry.verse.id)"))
+    }
+}
+
+struct LargeHomeWidget: View {
+    let entry: GitaEntry
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(entry.verse.reference)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(.orange)
+            
+            if !entry.verse.text.isEmpty {
+                Text(entry.verse.text)
+                    .font(.callout)
+                    .italic()
+                    .foregroundColor(.secondary)
+                    .lineLimit(3)
+            }
+            
+            Divider()
+            
+            Text(entry.verse.meaning)
+                .font(.body)
+                .lineLimit(12)
+            
+            Spacer(minLength: 0)
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .widgetURL(URL(string: "gitapearls://verse/\(entry.verse.id)"))
+    }
+}
+
+// MARK: - Previews
+
+struct HomeWidgetView_Previews: PreviewProvider {
+    static let sampleEntry = GitaEntry(date: Date(), verse: Verse.sample)
+    
+    static var previews: some View {
+        Group {
+            HomeWidgetView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+                .previewDisplayName("Small Home")
+            
+            HomeWidgetView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemMedium))
+                .previewDisplayName("Medium Home")
+            
+            HomeWidgetView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemLarge))
+                .previewDisplayName("Large Home")
+        }
     }
 }

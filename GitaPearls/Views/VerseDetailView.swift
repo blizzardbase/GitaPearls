@@ -8,37 +8,18 @@ struct VerseDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Reference Header
-                HStack {
-                    Text(verse.reference)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    
-                    Button(action: shareVerse) {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.title3)
-                    }
-                }
-                
-                Divider()
-                
                 // Sanskrit Text (if available)
                 if !verse.text.isEmpty {
                     Text(verse.text)
                         .font(.body)
                         .italic()
                         .foregroundColor(.secondary)
-                        .padding(.bottom, 8)
                 }
                 
                 // Meaning
                 Text(verse.meaning)
                     .font(.body)
                     .lineSpacing(6)
-                
-                Divider()
                 
                 // Tags
                 if !verse.tags.isEmpty {
@@ -52,15 +33,22 @@ struct VerseDetailView: View {
                                 .cornerRadius(12)
                         }
                     }
+                    .padding(.top, 12)
                 }
                 
                 Spacer()
             }
             .padding()
+            .padding(.top, 8)
         }
         .navigationTitle(verse.reference)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: shareVerse) {
+                    Image(systemName: "square.and.arrow.up")
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: toggleFavorite) {
                     Image(systemName: verseStore.isFavorite(verse.id) ? "heart.fill" : "heart")

@@ -16,3 +16,10 @@ struct CircularWidgetView: View {
         .widgetURL(URL(string: "gitapearls://verse/\(verse.id)"))
     }
 }
+
+struct CircularWidgetView_Previews: PreviewProvider {
+    static var previews: some View {
+        CircularWidgetView(verse: Verse.sample)
+            .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+    }
+}
