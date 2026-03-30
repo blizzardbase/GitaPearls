@@ -8,8 +8,11 @@ A free iOS app that brings the timeless wisdom of the Bhagavad Gita to your **ho
 
 - **Home Screen Widgets** (Primary): Three sizes — Small, Medium (reference + meaning only), and Large (with Sanskrit)
 - **Lock Screen Widgets** (Secondary): Rectangular verse text + Circular ॐ symbol as a complementary pair
-- **Synchronized Display**: All widgets show the same verse at any given time (seeded random based on time of day)
-- **150 Curated Verses**: Essential teachings from the Bhagavad Gita (30 sample verses included, expandable)
+- **Synchronized Display**: All widgets show the same verse at any given time (deterministic seeded random based on time of day)
+- **30 Curated Verses**: Essential teachings from the Bhagavad Gita
+- **Verse of the Day**: Daily featured verse with speaker and context
+- **Thematic Collections**: 6 curated collections (When You Feel Anxious, On Making Difficult Decisions, Detachment from Outcomes, On Duty and Purpose, When Facing Loss or Grief, Finding Inner Peace)
+- **Personal Reflections**: Write and save private notes on any verse
 - **Browse & Search**: Explore all verses with keyword search
 - **Favorites**: Save verses that resonate with you
 - **Deep Linking**: Tap any widget to open that verse in the app
@@ -28,17 +31,22 @@ A free iOS app that brings the timeless wisdom of the Bhagavad Gita to your **ho
 ```
 GitaPearls/
 ├── GitaPearlsApp.swift              # App entry point + deep link handling
-├── ContentView.swift                # Main list view
+├── ContentView.swift                # Main list view (All/Favorites/Collections/Reflections)
 ├── Views/
-│   ├── VerseRowView.swift           # List row component
-│   ├── VerseDetailView.swift        # Full verse view
+│   ├── VerseRowView.swift           # List row component (with reflection indicator)
+│   ├── VerseDetailView.swift        # Full verse view (with reflection editor)
+│   ├── CollectionsView.swift       # Themed verse collections
+│   ├── ReflectionsView.swift       # Personal reflection journal
 │   ├── SettingsSheet.swift          # Settings + about
 │   └── WidgetSetupSheet.swift       # Onboarding instructions
 ├── Models/
-│   └── Verse.swift                  # Shared verse model
+│   ├── Verse.swift                  # Shared verse model (app + widget)
+│   ├── Collection.swift            # Collection model
+│   └── SeededRandom.swift          # Shared deterministic RNG (app + widget)
 ├── Data/
-│   ├── verses.json                  # 30 sample verses (ready for 150)
-│   └── VerseStore.swift             # UserDefaults wrapper
+│   ├── verses.json                  # 30 curated verses
+│   ├── VerseStore.swift             # UserDefaults wrapper (favorites + reflections)
+│   └── collections.json             # Themed collections
 ├── Widget/
 │   ├── GitaPearlsWidget.swift       # Widget configuration
 │   └── Views/
@@ -48,7 +56,7 @@ GitaPearls/
 │       └── HomeWidgetView.swift      # systemSmall/Medium/Large
 ├── GitaPearls.xcodeproj             # ✅ Xcode project (building)
 ├── Info.plist + Entitlements        # App Groups + URL scheme config
-└── Assets.xcassets                  # App icons
+└── Assets.xcassets                  # App icons + AccentColor
 ```
 
 ## Widget Specifications
@@ -133,6 +141,10 @@ Free app. Swami Sivananda translation is public domain.
 ✅ **App icon generated (1024×1024 PNG)**  
 ✅ **SwiftUI Previews added for all widget families**  
 ✅ **Dark mode support throughout**  
+✅ **Verse-of-the-day with speaker and context**  
+✅ **Thematic collections (6 curated)**  
+✅ **Personal reflection journal**  
+✅ **SeededRandom unified across app + widget**  
 ⏳ **Ready for device testing**  
 ⏳ **Ready for App Store submission prep**
 
