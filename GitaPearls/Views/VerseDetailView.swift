@@ -121,9 +121,19 @@ struct FlowLayout: Layout {
 
 struct VerseDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            VerseDetailView(verse: Verse.sample)
-                .environmentObject(VerseStore.shared)
+        Group {
+            NavigationStack {
+                VerseDetailView(verse: Verse.sample)
+                    .environmentObject(VerseStore.shared)
+            }
+            .previewDisplayName("Light Mode")
+            
+            NavigationStack {
+                VerseDetailView(verse: Verse.sample)
+                    .environmentObject(VerseStore.shared)
+            }
+            .preferredColorScheme(.dark)
+            .previewDisplayName("Dark Mode")
         }
     }
 }

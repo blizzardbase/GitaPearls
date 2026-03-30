@@ -1,7 +1,7 @@
 # GitaPearls — Project Context
 
 ## Project Overview
-iOS app with lock screen and home screen widgets displaying Bhagavad Gita verses from Swami Sivananda's public domain translation. Free app, no monetization. **Xcode project created and building successfully.**
+iOS app with **home screen and lock screen widgets** displaying Bhagavad Gita verses from Swami Sivananda's public domain translation. **Primary use case: Home screen widgets** (Small, Medium, Large). Lock screen widgets (Rectangular + Circular ॐ pair) also supported as secondary option. Free app, no monetization. **Xcode project created and building successfully.**
 
 ---
 
@@ -16,9 +16,9 @@ iOS app with lock screen and home screen widgets displaying Bhagavad Gita verses
 | **Monetization** | Free app |
 | **Publisher Type** | Individual (no company needed) |
 | **Data Storage** | UserDefaults (favorites as ID array) + bundled JSON |
-| **Widget Provider** | TimelineProvider (simpler, no lock-screen config) |
+| **Widget Provider** | TimelineProvider — home screen widgets are primary, lock screen widgets secondary |
 | **Refresh Expectation** | System-managed, best-effort, UI labels as "throughout the day" |
-| **UI Structure** | Single scrollable list + favorites toggle + settings sheet |
+| **UI Structure** | Single scrollable list + favorites toggle + settings sheet + widget setup onboarding (home screen focused) |
 | **iOS Version** | iOS 16+ (for lock screen widget support) |
 
 ---
@@ -101,8 +101,8 @@ All widget instances use a seeded random number generator based on the entry dat
 - Minimal text — roughly 4 short lines max for rectangular
 - Uses full available width with `.frame(maxWidth: .infinity)`
 
-### Recommended Lock Screen Setup
-The optimal lock screen arrangement uses both widgets as a complementary pair:
+### Recommended Lock Screen Setup (Secondary)
+While home screen widgets are the primary use case, the lock screen pair is also available:
 
 | Position | Widget | Content |
 |----------|--------|---------|
@@ -110,6 +110,24 @@ The optimal lock screen arrangement uses both widgets as a complementary pair:
 | **Right (below clock)** | `accessoryCircular` | "ॐ" symbol |
 
 This creates a balanced spiritual aesthetic — the verse text on one side and the sacred Om symbol on the other. Both widgets are deep-linked and will open the app to the same verse when tapped.
+
+### Dark Mode Support
+All app views and widgets support dark mode:
+- **App views**: ContentView, VerseDetailView, SettingsSheet, WidgetSetupSheet use system colors (`.primary`, `.secondary`, `.secondarySystemBackground`)
+- **Home screen widgets**: Use `.primary`/`.secondary` for automatic adaptation
+- **Lock screen widgets**: Use system vibrancy (automatically adapts)
+- **Previews**: All PreviewProviders include both light and dark mode variants for testing
+
+**Dark Mode Audit Results:**
+| View | Status | Notes |
+|------|--------|-------|
+| ContentView | ✅ | Uses `.secondarySystemBackground` for search bar |
+| VerseRowView | ✅ | Uses `.primary`/`.secondary` |
+| VerseDetailView | ✅ | Uses `.secondary` for Sanskrit text |
+| SettingsSheet | ✅ | Uses system List with default styling |
+| WidgetSetupSheet | ✅ | Uses `.secondary` for descriptions |
+| Home widgets | ✅ | Uses `.primary`/`.secondary` (changed from `.orange` for better dark mode) |
+| Lock screen widgets | ✅ | System vibrancy handles automatically |
 
 ### Deep Linking
 - Widget tap opens main app to specific verse via `widgetURL`
@@ -136,18 +154,22 @@ struct GitaEntry: TimelineEntry {
 - **Question mark icon** (toolbar leading) — opens Widget Setup onboarding
 
 ### Verse Detail View
-- Full verse text
-- Full meaning/translation
-- Favorite toggle (heart button)
+- Layout order: Sanskrit text → English meaning → Tags (at bottom)
+- Tags have 12pt top padding to prevent crowding
+- 8pt top padding on scroll view to prevent navigation bar overlap
+- Full verse text (italic, secondary color)
+- Full meaning/translation with line spacing
+- Favorite toggle (heart button in toolbar)
+- Share button in toolbar
 - **Share format (LOCKED):**
   ```
   "BG 2.47 — You have a right to perform your duty... — Bhagavad Gita (Sivananda translation) via GitaPearls"
   ```
-- Reference (BG X.Y)
+- Reference (BG X.Y) shown in navigation title only (not duplicated in content)
 
 ### Settings Sheet Contents
 - About GitaPearls
-- How to add widget (onboarding replay)
+- How to add widget (onboarding replay) — **Home screen focused**, with lock screen as secondary option
 - Open source credits (Sivananda, JSON source)
 - Version info
 
@@ -256,11 +278,29 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 | **5** | Widget layout refinements (fonts, alignment, sizing) | ✅ Completed |
 | **6** | Same verse across all widgets (seeded random) | ✅ Completed |
 | **7** | Widget deep linking verified | ✅ Completed |
-| **8** | Testing on device, bug fixes | ⏳ Pending |
-| **9** | App Store prep (icons, screenshots, privacy policy) | ⏳ Pending |
-| **10** | Submission | ⏳ Pending |
+| **8** | VerseDetailView layout fix (tags at bottom, no overlap) | ✅ Completed |
+| **9** | Dark mode audit and fixes | ✅ Completed |
+| **10** | App icon design and generation | ✅ Completed |
+| **11** | Testing on device, bug fixes | ⏳ Pending |
+| **12** | App Store prep (screenshots, privacy policy) | ⏳ Pending |
+| **13** | Submission | ⏳ Pending |
 
-**Current Status:** All Swift source code is complete. Widgets now use seeded random for synchronized verse display. Next steps are device testing and App Store preparation.
+**Current Status:** All Swift source code is complete. Key features implemented:
+- ✅ Seeded random for synchronized verse display across all widgets
+- ✅ VerseDetailView with proper layout (Sanskrit → Meaning → Tags)
+- ✅ Dark mode support throughout app and widgets
+- ✅ Deep linking from all widget types
+- ✅ Medium widget: reference + meaning only (no Sanskrit)
+- ✅ Large widget: reference + Sanskrit + divider + meaning
+- ✅ App icon generated: glowing pearl with Om on saffron/gold gradient
+- ✅ Widget setup onboarding: home screen focused instructions
+
+**Next Steps:**
+1. Build and test on physical device
+2. Verify widget refresh behavior
+3. Take App Store screenshots (light/dark mode, all widget sizes)
+4. Write privacy policy (data not collected)
+5. Submit to App Store
 
 ---
 
@@ -282,3 +322,8 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 - UserDefaults uses App Group, not standard suite
 - widgetURL is the only way to handle taps from lock screen widget
 - Home screen widgets use `.body`/`.callout` for meaning, lock screen uses `.caption2`
+- All widgets show same verse at same time via seeded random (year/month/day/hour seed)
+- VerseDetailView layout order: Sanskrit → Meaning → Tags (with padding)
+- Medium widget intentionally excludes Sanskrit (maximize English meaning space)
+- Large widget includes Sanskrit + Divider + English meaning
+- Dark mode: use `.primary`/`.secondary` not hardcoded colors like `.orange`

@@ -62,6 +62,13 @@ struct SettingsSheet: View {
 
 struct SettingsSheet_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsSheet()
+        Group {
+            SettingsSheet()
+                .previewDisplayName("Light Mode")
+            
+            SettingsSheet()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }

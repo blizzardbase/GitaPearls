@@ -69,7 +69,7 @@ struct LargeHomeWidget: View {
             Text(entry.verse.reference)
                 .font(.subheadline)
                 .fontWeight(.semibold)
-                .foregroundColor(.orange)
+                .foregroundColor(.primary)
             
             if !entry.verse.text.isEmpty {
                 Text(entry.verse.text)
@@ -100,17 +100,34 @@ struct HomeWidgetView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
+            // Light mode previews
             HomeWidgetView(entry: sampleEntry)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
-                .previewDisplayName("Small Home")
+                .previewDisplayName("Small - Light")
             
             HomeWidgetView(entry: sampleEntry)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
-                .previewDisplayName("Medium Home")
+                .previewDisplayName("Medium - Light")
             
             HomeWidgetView(entry: sampleEntry)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
-                .previewDisplayName("Large Home")
+                .previewDisplayName("Large - Light")
+            
+            // Dark mode previews
+            HomeWidgetView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Small - Dark")
+            
+            HomeWidgetView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemMedium))
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Medium - Dark")
+            
+            HomeWidgetView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemLarge))
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Large - Dark")
         }
     }
 }

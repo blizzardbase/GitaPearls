@@ -15,12 +15,12 @@ struct WidgetSetupSheet: View {
                                 .font(.system(size: 60))
                                 .foregroundColor(.orange)
                             
-                            Text("Add GitaPearls to Your Lock Screen")
+                            Text("Add GitaPearls to Your Home Screen")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
                             
-                            Text("See a new verse each time you unlock your phone")
+                            Text("See a new verse every time you glance at your phone")
                                 .font(.body)
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
@@ -32,35 +32,45 @@ struct WidgetSetupSheet: View {
                         VStack(alignment: .leading, spacing: 20) {
                             StepView(
                                 number: 1,
-                                title: "Lock your iPhone",
-                                description: "Press the side button to lock your screen."
+                                title: "Long press on your Home Screen",
+                                description: "Press and hold anywhere on your wallpaper until the apps jiggle."
                             )
                             
                             StepView(
                                 number: 2,
-                                title: "Long press the lock screen",
-                                description: "Press and hold anywhere on your wallpaper."
+                                title: "Tap the Plus button",
+                                description: "Tap the + button in the top-left corner to open the widget gallery."
                             )
                             
                             StepView(
                                 number: 3,
-                                title: "Tap Customize",
-                                description: "Select either Lock Screen or Home Screen."
+                                title: "Find GitaPearls",
+                                description: "Scroll or search to find GitaPearls in the widget list."
                             )
                             
                             StepView(
                                 number: 4,
-                                title: "Add GitaPearls widget",
-                                description: "Tap the widget area, find GitaPearls, and choose your preferred size."
+                                title: "Choose your size",
+                                description: "Swipe through Small, Medium, and Large options. Tap Add Widget."
                             )
                             
                             StepView(
                                 number: 5,
-                                title: "Done!",
-                                description: "Lock your phone again and unlock to see your first verse."
+                                title: "Place your widget",
+                                description: "Drag the widget to your preferred spot. Tap Done when finished."
                             )
                         }
                         .padding(.horizontal)
+                        
+                        // Note about lock screen
+                        HStack {
+                            Image(systemName: "lock.shield")
+                            Text("Also available on your Lock Screen — add the verse widget and ॐ symbol together.")
+                                .font(.caption)
+                        }
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+                        .padding(.top, 10)
                         
                         // Note about refresh
                         HStack {
@@ -70,7 +80,7 @@ struct WidgetSetupSheet: View {
                         }
                         .foregroundColor(.secondary)
                         .padding(.horizontal)
-                        .padding(.top, 10)
+                        .padding(.top, 6)
                         
                         Spacer(minLength: 40)
                     }
@@ -141,6 +151,13 @@ struct StepView: View {
 
 struct WidgetSetupSheet_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetSetupSheet()
+        Group {
+            WidgetSetupSheet()
+                .previewDisplayName("Light Mode")
+            
+            WidgetSetupSheet()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }

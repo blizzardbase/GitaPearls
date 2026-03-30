@@ -41,7 +41,15 @@ struct VerseRowView: View {
 
 struct VerseRowView_Previews: PreviewProvider {
     static var previews: some View {
-        VerseRowView(verse: Verse.sample)
-            .environmentObject(VerseStore.shared)
+        Group {
+            VerseRowView(verse: Verse.sample)
+                .environmentObject(VerseStore.shared)
+                .previewDisplayName("Light Mode")
+            
+            VerseRowView(verse: Verse.sample)
+                .environmentObject(VerseStore.shared)
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }

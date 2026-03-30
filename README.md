@@ -1,11 +1,14 @@
 # GitaPearls
 
-A free iOS app that brings the timeless wisdom of the Bhagavad Gita to your lock screen and home screen. Each time you unlock your phone or glance at your home screen, discover a new verse from Swami Sivananda's respected public domain translation.
+A free iOS app that brings the timeless wisdom of the Bhagavad Gita to your **home screen and lock screen**. Each time you glance at your phone or unlock it, discover a new verse from Swami Sivananda's respected public domain translation.
+
+**Primary use case: Home screen widgets** (Small, Medium, Large). Lock screen widgets (Rectangular verse + ॐ symbol pair) also supported.
 
 ## Features
 
-- **Lock Screen Widgets**: Three styles — inline (reference only), rectangular (full verse), circular (ॐ symbol)
-- **Home Screen Widgets**: Three sizes — small, medium, and large with optimized text layout
+- **Home Screen Widgets** (Primary): Three sizes — Small, Medium (reference + meaning only), and Large (with Sanskrit)
+- **Lock Screen Widgets** (Secondary): Rectangular verse text + Circular ॐ symbol as a complementary pair
+- **Synchronized Display**: All widgets show the same verse at any given time (seeded random based on time of day)
 - **150 Curated Verses**: Essential teachings from the Bhagavad Gita (30 sample verses included, expandable)
 - **Browse & Search**: Explore all verses with keyword search
 - **Favorites**: Save verses that resonate with you
@@ -52,14 +55,14 @@ GitaPearls/
 
 | Widget | Size | Content | Font |
 |--------|------|---------|------|
+| Small | Home | Meaning, top-aligned | Reference: `.caption`, Meaning: `.callout` |
+| Medium | Home | **Reference + English meaning only** | Reference: `.caption`, Meaning: `.footnote` |
+| Large | Home | Reference + Sanskrit + Divider + Meaning | Reference: `.subheadline`, Meaning: `.body`, Sanskrit: `.callout` |
 | Inline | Lock Screen | Reference only (BG 2.47) | `.caption` |
 | Rectangular | Lock Screen | Full meaning, 4 lines | Reference: `.caption`, Meaning: `.caption2` |
 | Circular | Lock Screen | ॐ symbol | `.title` |
-| Small | Home Screen | Meaning, top-aligned | Reference: `.caption`, Meaning: `.callout` |
-| Medium | Home Screen | Meaning, wider layout | Reference: `.caption`, Meaning: `.callout` |
-| Large | Home Screen | Meaning + Sanskrit | Reference: `.caption`, Meaning: `.body`, Sanskrit: `.caption2` |
 
-All widgets use `.frame(maxWidth: .infinity, maxHeight: .infinity)` to fill their containers edge-to-edge.
+**Note:** Medium widget intentionally omits Sanskrit to maximize English meaning space. Sanskrit only appears in Large widget.
 
 ## Development Setup
 
@@ -127,13 +130,16 @@ Free app. Swami Sivananda translation is public domain.
 ✅ **Xcode project created and building**  
 ✅ **All Swift source code complete**  
 ✅ **Widgets configured with optimized layouts**  
+✅ **App icon generated (1024×1024 PNG)**  
 ✅ **SwiftUI Previews added for all widget families**  
+✅ **Dark mode support throughout**  
 ⏳ **Ready for device testing**  
 ⏳ **Ready for App Store submission prep**
 
 ## Next Steps
 
 1. Test on physical device (widgets work best on real devices)
-2. Create App Store listing with screenshots
-3. Write privacy policy
-4. Submit for review
+2. Verify dark mode appearance on device
+3. Create App Store listing with screenshots (light + dark mode)
+4. Write privacy policy
+5. Submit for review

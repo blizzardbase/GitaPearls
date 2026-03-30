@@ -126,7 +126,15 @@ struct SearchBar: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(selectedVerseID: .constant(nil))
-            .environmentObject(VerseStore.shared)
+        Group {
+            ContentView(selectedVerseID: .constant(nil))
+                .environmentObject(VerseStore.shared)
+                .previewDisplayName("Light Mode")
+            
+            ContentView(selectedVerseID: .constant(nil))
+                .environmentObject(VerseStore.shared)
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }
