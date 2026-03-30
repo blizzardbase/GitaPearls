@@ -32,6 +32,7 @@
 		000000000000000000000026 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000321 /* CollectionsView.swift */; };
 		000000000000000000000027 /* collections.json in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000231 /* collections.json */; };
 		000000000000000000000028 /* ReflectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000322 /* ReflectionsView.swift */; };
+		000000000000000000000029 /* SeededRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000212 /* SeededRandom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		000000000000000000000111 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		000000000000000000000210 /* Verse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
 		000000000000000000000211 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		000000000000000000000212 /* SeededRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededRandom.swift; sourceTree = "<group>"; };
 		000000000000000000000220 /* VerseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseStore.swift; sourceTree = "<group>"; };
 		000000000000000000000230 /* verses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = verses.json; sourceTree = "<group>"; };
 		000000000000000000000231 /* collections.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = collections.json; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				000000000000000000000210 /* Verse.swift */,
 				000000000000000000000211 /* Collection.swift */,
+				000000000000000000000212 /* SeededRandom.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				000000000000000000000025 /* Collection.swift in Sources */,
 				000000000000000000000026 /* CollectionsView.swift in Sources */,
 				000000000000000000000028 /* ReflectionsView.swift in Sources */,
+				000000000000000000000029 /* SeededRandom.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +336,7 @@
 				000000000000000000000020 /* RectangularWidgetView.swift in Sources */,
 				000000000000000000000021 /* CircularWidgetView.swift in Sources */,
 				000000000000000000000022 /* HomeWidgetView.swift in Sources */,
+				000000000000000000000029 /* SeededRandom.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

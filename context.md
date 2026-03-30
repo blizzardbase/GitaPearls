@@ -12,7 +12,7 @@ iOS app with **home screen and lock screen widgets** displaying Bhagavad Gita ve
 | **App Name** | GitaPearls |
 | **Bundle ID** | `com.yourname.gitapearls` (update with your name) |
 | **Translation** | Swami Sivananda (public domain, legally safe) |
-| **Verse Count** | 150 curated essence verses (30 sample verses included) |
+| **Verse Count** | 30 curated essence verses |
 | **Monetization** | Free app |
 | **Publisher Type** | Individual (no company needed) |
 | **Data Storage** | UserDefaults (favorites as ID array) + bundled JSON |
@@ -184,13 +184,18 @@ GitaPearls/
 ├── Views/
 │   ├── VerseRowView.swift           (list row component)
 │   ├── VerseDetailView.swift        (full verse view)
+│   ├── CollectionsView.swift       (themed verse collections)
+│   ├── ReflectionsView.swift       (personal reflection journal)
 │   ├── SettingsSheet.swift          (settings + about)
 │   └── WidgetSetupSheet.swift       (onboarding instructions)
 ├── Models/
-│   └── Verse.swift                  (SINGLE shared model)
+│   ├── Verse.swift                  (SINGLE shared model)
+│   ├── Collection.swift            (collection model)
+│   └── SeededRandom.swift           (SINGLE shared seeded RNG)
 ├── Data/
-│   ├── verses.json                  (30 sample verses)
-│   └── VerseStore.swift             (UserDefaults wrapper)
+│   ├── verses.json                  (30 verse data)
+│   ├── VerseStore.swift             (UserDefaults wrapper)
+│   └── collections.json             (themed collections)
 ├── Widget/
 │   ├── GitaPearlsWidget.swift       (widget configuration + supported families)
 │   └── Views/
@@ -199,7 +204,7 @@ GitaPearls/
 │       ├── CircularWidgetView.swift  (accessoryCircular — "ॐ" glyph)
 │       └── HomeWidgetView.swift      (systemSmall/Medium/Large — home screen)
 ├── Info.plist + Entitlements        (App Groups config + URL scheme)
-└── Assets.xcassets                  (App icons)
+└── Assets.xcassets                  (App icons + AccentColor)
 ```
 
 **Key point:** `Verse.swift` is in the `Models/` folder with "Target Membership" set to both app and widget targets. No duplicate files.
@@ -260,8 +265,7 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 - Simpler implementation
 
 ### Content Strategy
-- 150 curated essence verses from Swami Sivananda translation
-- If curated list not found: use full ~700 verse JSON and select most well-known
+- 30 curated essence verses from Swami Sivananda translation
 - Hard cutoff: 2 hours max for content sourcing
 
 ---
@@ -294,6 +298,10 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 - ✅ Large widget: reference + Sanskrit + divider + meaning
 - ✅ App icon generated: glowing pearl with Om on saffron/gold gradient
 - ✅ Widget setup onboarding: home screen focused instructions
+- ✅ Verse-of-the-day with speaker and context card
+- ✅ Thematic collections (6 curated verse collections)
+- ✅ Personal reflection journal per verse
+- ✅ SeededRandom unified across app and widget targets
 
 **Next Steps:**
 1. Build and test on physical device

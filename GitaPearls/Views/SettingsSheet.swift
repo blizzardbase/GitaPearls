@@ -33,7 +33,7 @@ struct SettingsSheet: View {
                         Text("Verses")
                             .font(.caption)
                             .foregroundColor(.secondary)
-                        Text("150 curated essence verses")
+                        Text("30 curated essence verses")
                     }
                 }
                 

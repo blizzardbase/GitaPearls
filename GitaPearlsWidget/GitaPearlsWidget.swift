@@ -73,36 +73,6 @@ struct Provider: TimelineProvider {
     }
 }
 
-// Seeded random number generator for deterministic verse selection
-struct SeededRandom {
-    private var state: UInt64
-    
-    init(seed: Int) {
-        var hasher = Hasher()
-        hasher.combine(seed)
-        state = UInt64(abs(hasher.finalize()))
-        if state == 0 { state = 1 }
-    }
-    
-    mutating func randomInt(in range: ClosedRange<Int>) -> Int {
-        let count = range.upperBound - range.lowerBound + 1
-        let randomValue = randomUInt64()
-        return range.lowerBound + Int(randomValue % UInt64(count))
-    }
-    
-    mutating func randomInt(in range: Range<Int>) -> Int {
-        let count = range.upperBound - range.lowerBound
-        let randomValue = randomUInt64()
-        return range.lowerBound + Int(randomValue % UInt64(count))
-    }
-    
-    private mutating func randomUInt64() -> UInt64 {
-        // Linear congruential generator
-        state = 6364136223846793005 &* state &+ 1
-        return state
-    }
-}
-
 @main
 struct GitaPearlsWidget: Widget {
     let kind: String = "GitaPearlsWidget"
