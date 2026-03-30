@@ -141,5 +141,5 @@ Free app. Swami Sivananda translation is public domain.
 1. Test on physical device (widgets work best on real devices)
 2. Verify dark mode appearance on device
 3. Create App Store listing with screenshots (light + dark mode)
-4. Write privacy policy
+4. Enable GitHub Pages for privacy policy (`docs/privacy.html`)
 5. Submit for review

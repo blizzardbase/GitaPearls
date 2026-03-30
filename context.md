@@ -297,10 +297,11 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 
 **Next Steps:**
 1. Build and test on physical device
-2. Verify widget refresh behavior
+2. Verify dark mode appearance on device
 3. Take App Store screenshots (light/dark mode, all widget sizes)
-4. Write privacy policy (data not collected)
-5. Submit to App Store
+4. Host privacy policy on GitHub Pages (`docs/privacy.html` ready)
+5. Configure App Store listing with privacy policy URL
+6. Submit to App Store
 
 ---
 
