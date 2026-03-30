@@ -5,6 +5,7 @@ struct VerseDetailView: View {
     @EnvironmentObject var verseStore: VerseStore
     @Environment(\.dismiss) private var dismiss
     @State private var reflectionText: String = ""
+    @State private var showClearConfirmation = false
     @FocusState private var isReflectionFocused: Bool
     
     var body: some View {
@@ -80,14 +81,10 @@ struct VerseDetailView: View {
                         .background(Color(.secondarySystemBackground))
                         .cornerRadius(8)
                         .focused($isReflectionFocused)
-                        .onChange(of: reflectionText) { _, newValue in
-                            verseStore.saveReflection(newValue, for: verse.id)
-                        }
                     
-                    if !reflectionText.isEmpty {
+                    if !reflectionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         Button(action: { 
-                            reflectionText = ""
-                            verseStore.saveReflection("", for: verse.id)
+                            showClearConfirmation = true
                         }) {
                             Text("Clear Reflection")
                                 .font(.caption)
@@ -120,6 +117,18 @@ struct VerseDetailView: View {
         .onAppear {
             reflectionText = verseStore.getReflection(for: verse.id) ?? ""
         }
+        .onDisappear {
+            let trimmed = reflectionText.trimmingCharacters(in: .whitespacesAndNewlines)
+            verseStore.saveReflection(trimmed, for: verse.id)
+        }
+        .confirmationDialog("Clear Reflection", isPresented: $showClearConfirmation, titleVisibility: .visible) {
+            Button("Clear", role: .destructive) {
+                reflectionText = ""
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to clear this reflection? This cannot be undone.")
+        }
     }
     
     private func toggleFavorite() {
@@ -151,7 +160,11 @@ struct FlowLayout: Layout {
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
         let result = FlowResult(in: bounds.width, subviews: subviews, spacing: spacing)
         for (index, subview) in subviews.enumerated() {
-            subview.place(at: result.positions[index], proposal: .unspecified)
+            let position = CGPoint(
+                x: bounds.minX + result.positions[index].x,
+                y: bounds.minY + result.positions[index].y
+            )
+            subview.place(at: position, proposal: .unspecified)
         }
     }
     

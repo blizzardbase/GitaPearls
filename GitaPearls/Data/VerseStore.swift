@@ -94,10 +94,11 @@ class VerseStore: ObservableObject {
     }
     
     func saveReflection(_ text: String, for verseID: Int) {
-        if text.isEmpty {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty {
             reflections.removeValue(forKey: verseID)
         } else {
-            reflections[verseID] = text
+            reflections[verseID] = trimmed
         }
         saveReflections()
     }
@@ -108,7 +109,10 @@ class VerseStore: ObservableObject {
     }
     
     func getVersesWithReflections() -> [Int] {
-        reflections.keys.sorted()
+        reflections.keys.filter { id in
+            guard let text = reflections[id] else { return false }
+            return !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }.sorted()
     }
 }
 

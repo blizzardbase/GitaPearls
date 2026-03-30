@@ -43,6 +43,9 @@ struct VerseRowView: View {
         if firstSentence.count > 100 {
             return String(firstSentence.prefix(100)) + "..."
         }
+        if firstSentence.hasSuffix(".") {
+            return firstSentence
+        }
         return firstSentence + "."
     }
 }
