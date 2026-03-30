@@ -14,10 +14,18 @@ struct VerseRowView: View {
                 
                 Spacer()
                 
-                if verseStore.isFavorite(verse.id) {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
-                        .font(.caption)
+                HStack(spacing: 8) {
+                    if verseStore.hasReflection(for: verse.id) {
+                        Image(systemName: "pencil.line")
+                            .foregroundColor(.orange)
+                            .font(.caption)
+                    }
+                    
+                    if verseStore.isFavorite(verse.id) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.red)
+                            .font(.caption)
+                    }
                 }
             }
             

@@ -7,13 +7,16 @@ class VerseStore: ObservableObject {
     private let favoriteVerseIDsKey = "favoriteVerseIDs"
     private let lastDisplayedVerseIDKey = "lastDisplayedVerseID"
     private let hasCompletedOnboardingKey = "hasCompletedOnboarding"
+    private let reflectionsKey = "reflections"
     
     @Published var favoriteVerseIDs: Set<Int> = []
+    @Published var reflections: [Int: String] = [:]
     
     init() {
         // Use App Group for sharing with widget
         self.defaults = UserDefaults(suiteName: "group.com.yourname.gitapearls") ?? .standard
         loadFavorites()
+        loadReflections()
     }
     
     // MARK: - Favorites
@@ -69,6 +72,43 @@ class VerseStore: ObservableObject {
     
     func setCompletedOnboarding(_ completed: Bool = true) {
         defaults.set(completed, forKey: hasCompletedOnboardingKey)
+    }
+    
+    // MARK: - Reflections
+    
+    private func loadReflections() {
+        if let data = defaults.data(forKey: reflectionsKey),
+           let decoded = try? JSONDecoder().decode([Int: String].self, from: data) {
+            reflections = decoded
+        }
+    }
+    
+    private func saveReflections() {
+        if let encoded = try? JSONEncoder().encode(reflections) {
+            defaults.set(encoded, forKey: reflectionsKey)
+        }
+    }
+    
+    func getReflection(for verseID: Int) -> String? {
+        reflections[verseID]
+    }
+    
+    func saveReflection(_ text: String, for verseID: Int) {
+        if text.isEmpty {
+            reflections.removeValue(forKey: verseID)
+        } else {
+            reflections[verseID] = text
+        }
+        saveReflections()
+    }
+    
+    func hasReflection(for verseID: Int) -> Bool {
+        guard let text = reflections[verseID] else { return false }
+        return !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    func getVersesWithReflections() -> [Int] {
+        reflections.keys.sorted()
     }
 }
 

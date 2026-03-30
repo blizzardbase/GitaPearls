@@ -3,6 +3,7 @@ import SwiftUI
 enum ViewMode: String, CaseIterable {
     case all = "All"
     case favorites = "Favorites"
+    case reflections = "Reflections"
     case collections = "Collections"
 }
 
@@ -62,6 +63,8 @@ struct ContentView: View {
                 switch viewMode {
                 case .collections:
                     CollectionsView()
+                case .reflections:
+                    ReflectionsView()
                 default:
                     verseListView
                 }

@@ -4,6 +4,8 @@ struct VerseDetailView: View {
     let verse: Verse
     @EnvironmentObject var verseStore: VerseStore
     @Environment(\.dismiss) private var dismiss
+    @State private var reflectionText: String = ""
+    @FocusState private var isReflectionFocused: Bool
     
     var body: some View {
         ScrollView {
@@ -59,6 +61,42 @@ struct VerseDetailView: View {
                     .padding(.top, 12)
                 }
                 
+                // My Reflection Section
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Image(systemName: "pencil.line")
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                        Text("My Reflection")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        Spacer()
+                    }
+                    
+                    TextEditor(text: $reflectionText)
+                        .font(.body)
+                        .frame(minHeight: 100)
+                        .padding(8)
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(8)
+                        .focused($isReflectionFocused)
+                        .onChange(of: reflectionText) { _, newValue in
+                            verseStore.saveReflection(newValue, for: verse.id)
+                        }
+                    
+                    if !reflectionText.isEmpty {
+                        Button(action: { 
+                            reflectionText = ""
+                            verseStore.saveReflection("", for: verse.id)
+                        }) {
+                            Text("Clear Reflection")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+                .padding(.top, 8)
+                
                 Spacer()
             }
             .padding()
@@ -78,6 +116,9 @@ struct VerseDetailView: View {
                         .foregroundColor(verseStore.isFavorite(verse.id) ? .red : .primary)
                 }
             }
+        }
+        .onAppear {
+            reflectionText = verseStore.getReflection(for: verse.id) ?? ""
         }
     }
     
