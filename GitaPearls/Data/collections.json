@@ -1,0 +1,40 @@
+{
+  "collections": [
+    {
+      "id": 1,
+      "title": "When You Feel Anxious",
+      "description": "The Bhagavad Gita teaches that anxiety arises from attachment to outcomes and identification with the mind's restless nature. These verses offer guidance on cultivating steadiness, tolerating life's dualities, and finding calm through self-mastery.",
+      "verseIDs": [8, 9, 10, 27, 28]
+    },
+    {
+      "id": 2,
+      "title": "On Making Difficult Decisions",
+      "description": "Arjuna himself faced an impossible choice between duty and compassion. The Gita's wisdom on decisive action emphasizes performing one's duty with equanimity, seeking higher counsel, and surrendering the fruits of choice.",
+      "verseIDs": [1, 2, 11, 24, 25, 3]
+    },
+    {
+      "id": 3,
+      "title": "Detachment from Outcomes",
+      "description": "True freedom comes not from abandoning action but from releasing the anxiety of results. These verses reveal the art of dedicated work performed as offering, free from the bondage of expectation.",
+      "verseIDs": [1, 2, 3, 4, 14, 22]
+    },
+    {
+      "id": 4,
+      "title": "On Duty and Purpose",
+      "description": "Each soul has its own path and purpose. The Gita illuminates how to discover one's unique duty, perform it with devotion, and understand that all sincere work becomes spiritual when offered with the right consciousness.",
+      "verseIDs": [1, 2, 4, 6, 14, 16]
+    },
+    {
+      "id": 5,
+      "title": "When Facing Loss or Grief",
+      "description": "The wise neither lament the living nor the dead. These verses offer profound comfort about the eternal nature of the soul, the inevitability of change, and the perspective that transforms grief into understanding.",
+      "verseIDs": [25, 26, 29, 30, 13]
+    },
+    {
+      "id": 6,
+      "title": "Finding Inner Peace",
+      "description": "Peace is not found in external circumstances but in the conquest of the mind and realization of one's eternal nature. These verses point toward the stillness available through devotion, knowledge, and equanimity.",
+      "verseIDs": [7, 8, 9, 10, 28, 15]
+    }
+  ]
+}

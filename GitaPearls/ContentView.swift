@@ -1,12 +1,18 @@
 import SwiftUI
 
+enum ViewMode: String, CaseIterable {
+    case all = "All"
+    case favorites = "Favorites"
+    case collections = "Collections"
+}
+
 struct ContentView: View {
     @Binding var selectedVerseID: Int?
     @EnvironmentObject var verseStore: VerseStore
     @State private var searchText = ""
-    @State private var showFavoritesOnly = false
     @State private var showSettings = false
     @State private var showWidgetSetup = false
+    @State private var viewMode: ViewMode = .all
     
     @State private var verses: [Verse] = []
     
@@ -23,7 +29,7 @@ struct ContentView: View {
     var filteredVerses: [Verse] {
         var result = verses
         
-        if showFavoritesOnly {
+        if viewMode == .favorites {
             result = result.filter { verseStore.isFavorite($0.id) }
         }
         
@@ -41,38 +47,23 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Search Bar
-                SearchBar(text: $searchText)
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-                
-                // Verse List (with Today's Verse at top when not searching/favoriting)
-                List {
-                    if !showFavoritesOnly && searchText.isEmpty, let verse = todaysVerse {
-                        Section {
-                            NavigationLink(value: verse) {
-                                TodaysVerseCard(verse: verse)
-                            }
-                            .listRowBackground(Color(.secondarySystemBackground))
-                        } header: {
-                            Text("Today's Verse")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                                .textCase(nil)
-                        }
-                    }
-                    
-                    Section {
-                        ForEach(filteredVerses) { verse in
-                            NavigationLink(value: verse) {
-                                VerseRowView(verse: verse)
-                            }
-                        }
+                // View Mode Segmented Control
+                Picker("View Mode", selection: $viewMode) {
+                    ForEach(ViewMode.allCases, id: \.self) { mode in
+                        Text(mode.rawValue).tag(mode)
                     }
                 }
-                .listStyle(.plain)
-                .navigationDestination(for: Verse.self) { verse in
-                    VerseDetailView(verse: verse)
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.top, 8)
+                .padding(.bottom, 8)
+                
+                // Content based on view mode
+                switch viewMode {
+                case .collections:
+                    CollectionsView()
+                default:
+                    verseListView
                 }
             }
             .navigationTitle("GitaPearls")
@@ -84,20 +75,8 @@ struct ContentView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button(action: { showFavoritesOnly = false }) {
-                            Label("All Verses", systemImage: showFavoritesOnly ? "circle" : "checkmark.circle.fill")
-                        }
-                        Button(action: { showFavoritesOnly = true }) {
-                            Label("Favorites Only", systemImage: showFavoritesOnly ? "heart.circle.fill" : "heart")
-                        }
-                        Divider()
-                        Button(action: { showSettings = true }) {
-                            Label("Settings", systemImage: "gear")
-                        }
-                    } label: {
-                        Image(systemName: showFavoritesOnly ? "heart.circle.fill" : "line.3.horizontal.decrease.circle")
-                            .foregroundColor(showFavoritesOnly ? .red : .primary)
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gear")
                     }
                 }
             }
@@ -116,6 +95,45 @@ struct ContentView: View {
                let verse = verses.first(where: { $0.id == id }) {
                 // Navigate to verse detail
                 // This would require NavigationPath management
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var verseListView: some View {
+        VStack(spacing: 0) {
+            // Search Bar (only for All and Favorites)
+            SearchBar(text: $searchText)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+            
+            // Verse List (with Today's Verse at top when viewing All)
+            List {
+                if viewMode == .all && searchText.isEmpty, let verse = todaysVerse {
+                    Section {
+                        NavigationLink(value: verse) {
+                            TodaysVerseCard(verse: verse)
+                        }
+                        .listRowBackground(Color(.secondarySystemBackground))
+                    } header: {
+                        Text("Today's Verse")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                            .textCase(nil)
+                    }
+                }
+                
+                Section {
+                    ForEach(filteredVerses) { verse in
+                        NavigationLink(value: verse) {
+                            VerseRowView(verse: verse)
+                        }
+                    }
+                }
+            }
+            .listStyle(.plain)
+            .navigationDestination(for: Verse.self) { verse in
+                VerseDetailView(verse: verse)
             }
         }
     }
