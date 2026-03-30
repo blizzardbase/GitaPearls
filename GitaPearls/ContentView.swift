@@ -92,7 +92,7 @@ struct ContentView: View {
         }
         .onChange(of: selectedVerseID) { newID in
             if let id = newID,
-               let verse = verses.first(where: { $0.id == id }) {
+               let _ = verses.first(where: { $0.id == id }) {
                 // Navigate to verse detail
                 // This would require NavigationPath management
             }
