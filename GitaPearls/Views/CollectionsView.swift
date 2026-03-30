@@ -3,23 +3,23 @@ import SwiftUI
 struct CollectionsView: View {
     @State private var collections: [Collection] = []
     @State private var verses: [Verse] = []
-    @State private var selectedCollection: Collection?
+    @State private var selectedCollectionID: Int?
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 16) {
                     ForEach(collections) { collection in
-                        CollectionCard(collection: collection)
-                            .onTapGesture {
-                                selectedCollection = collection
-                            }
+                        NavigationLink(value: collection) {
+                            CollectionCard(collection: collection)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding()
             }
             .navigationTitle("Collections")
-            .navigationDestination(item: $selectedCollection) { collection in
+            .navigationDestination(for: Collection.self) { collection in
                 CollectionDetailView(collection: collection, allVerses: verses)
             }
             .onAppear {
