@@ -8,6 +8,29 @@ struct VerseDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
+                // Context Card
+                if let speaker = verse.speaker, let context = verse.context {
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "person.circle.fill")
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                            Text(speaker)
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                        }
+                        Text(context)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineLimit(2)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 10)
+                    .background(Color(.tertiarySystemBackground))
+                    .cornerRadius(10)
+                }
+                
                 // Sanskrit Text (if available)
                 if !verse.text.isEmpty {
                     Text(verse.text)

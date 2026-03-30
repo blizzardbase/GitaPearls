@@ -8,9 +8,11 @@ struct Verse: Codable, Identifiable, Hashable {
     let meaning: String
     let reference: String
     let tags: [String]
+    let context: String?
+    let speaker: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, chapter, verse, text, meaning, reference, tags
+        case id, chapter, verse, text, meaning, reference, tags, context, speaker
     }
 }
 
@@ -22,6 +24,8 @@ extension Verse {
         text: "karmanye vadhikaraste ma phaleshu kadacana",
         meaning: "You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions.",
         reference: "BG 2.47",
-        tags: ["karma", "duty", "detachment"]
+        tags: ["karma", "duty", "detachment"],
+        context: "Krishna responds to Arjuna's despair about fighting his kinsmen",
+        speaker: "Krishna"
     )
 }

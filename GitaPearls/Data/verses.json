@@ -7,7 +7,9 @@
       "text": "karmanye vadhikaraste ma phaleshu kadacana",
       "meaning": "You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results of your activities, nor be attached to inaction.",
       "reference": "BG 2.47",
-      "tags": ["karma", "duty", "detachment"]
+      "tags": ["karma", "duty", "detachment"],
+      "context": "Krishna responds to Arjuna's despair about fighting his kinsmen",
+      "speaker": "Krishna"
     },
     {
       "id": 2,
@@ -16,7 +18,9 @@
       "text": "yogasthah kuru karmani sangam tyaktva dhananjaya",
       "meaning": "Perform your duty equipoised, O Arjuna, abandoning all attachment to success or failure. Such equanimity is called yoga.",
       "reference": "BG 2.48",
-      "tags": ["yoga", "equanimity", "work"]
+      "tags": ["yoga", "equanimity", "work"],
+      "context": "Krishna continues instructing Arjuna on performing duty with balance",
+      "speaker": "Krishna"
     },
     {
       "id": 3,
@@ -25,7 +29,9 @@
       "text": "buddhiyukto jahatiha ubhe sukrta duskrte",
       "meaning": "Endowed with such a faith, he seeks the favor of a particular demigod and obtains his desires. But in reality these benefits are bestowed by Me alone.",
       "reference": "BG 2.50",
-      "tags": ["wisdom", "action", "liberation"]
+      "tags": ["wisdom", "action", "liberation"],
+      "context": "Krishna explains how one with wisdom transcends good and bad karma",
+      "speaker": "Krishna"
     },
     {
       "id": 4,
@@ -34,7 +40,9 @@
       "text": "tasmad asaktah satatam karyam karma samacara",
       "meaning": "Therefore, without attachment, perform your duty, for by working without attachment one attains the Supreme.",
       "reference": "BG 3.19",
-      "tags": ["duty", "non-attachment", "supreme"]
+      "tags": ["duty", "non-attachment", "supreme"],
+      "context": "Krishna emphasizes selfless action as the path to liberation",
+      "speaker": "Krishna"
     },
     {
       "id": 5,
@@ -43,7 +51,9 @@
       "text": "yada yada hi dharmasya glanir bhavati bharata",
       "meaning": "Whenever and wherever there is a decline in religious practice, O descendant of Bharata, and a predominant rise of irreligion — at that time I descend Myself.",
       "reference": "BG 4.7",
-      "tags": ["divine", "incarnation", "dharma"]
+      "tags": ["divine", "incarnation", "dharma"],
+      "context": "Krishna reveals His divine mission to restore cosmic order",
+      "speaker": "Krishna"
     },
     {
       "id": 6,
@@ -52,7 +62,9 @@
       "text": "paritranaya sadhunam vinasaya ca duskrtam",
       "meaning": "To deliver the pious and to annihilate the miscreants, as well as to reestablish the principles of religion, I Myself appear, millennium after millennium.",
       "reference": "BG 4.8",
-      "tags": ["divine", "mission", "protection"]
+      "tags": ["divine", "mission", "protection"],
+      "context": "Krishna explains the purpose of His descent into the world",
+      "speaker": "Krishna"
     },
     {
       "id": 7,
@@ -61,7 +73,9 @@
       "text": "bhoktaram yajnatapasam sarvaloka mahesvaram",
       "meaning": "The sages, knowing Me as the ultimate purpose of all sacrifices and austerities, the Supreme Lord of all worlds, and the friend of all living entities, attain peace.",
       "reference": "BG 5.29",
-      "tags": ["devotion", "peace", "supreme"]
+      "tags": ["devotion", "peace", "supreme"],
+      "context": "Krishna describes the path to peace through recognizing His supremacy",
+      "speaker": "Krishna"
     },
     {
       "id": 8,
@@ -70,7 +84,9 @@
       "text": "uddhared atmanatmanam natmanam avasadayet",
       "meaning": "One must deliver himself with the help of his mind, and not degrade himself. The mind is the friend of the conditioned soul, and his enemy as well.",
       "reference": "BG 6.5",
-      "tags": ["mind", "self", "discipline"]
+      "tags": ["mind", "self", "discipline"],
+      "context": "Krishna instructs on self-mastery through mental discipline",
+      "speaker": "Krishna"
     },
     {
       "id": 9,
@@ -79,7 +95,9 @@
       "text": "bandhur atmatmanas tasya yenatmaivatmana jitaḥ",
       "meaning": "For him who has conquered the mind, the mind is the best of friends; but for one who has failed to do so, his mind will remain the greatest enemy.",
       "reference": "BG 6.6",
-      "tags": ["mind", "conquest", "friend"]
+      "tags": ["mind", "conquest", "friend"],
+      "context": "Krishna explains the dual nature of the mind as friend or foe",
+      "speaker": "Krishna"
     },
     {
       "id": 10,
@@ -88,7 +106,9 @@
       "text": "asamsayam maha-baho mano durnigraham calam",
       "meaning": "O mighty-armed son of Kunti, it is undoubtedly very difficult to curb the restless mind, but it is possible by suitable practice and by detachment.",
       "reference": "BG 6.35",
-      "tags": ["mind", "practice", "detachment"]
+      "tags": ["mind", "practice", "detachment"],
+      "context": "Krishna answers Arjuna's concern about the restless mind",
+      "speaker": "Krishna"
     },
     {
       "id": 11,
@@ -97,7 +117,9 @@
       "text": "mattah parataram nanyat kincid asti dhananjaya",
       "meaning": "O conqueror of wealth, there is no truth superior to Me. Everything rests upon Me, as pearls are strung on a thread.",
       "reference": "BG 7.7",
-      "tags": ["supreme", "truth", "foundation"]
+      "tags": ["supreme", "truth", "foundation"],
+      "context": "Krishna reveals Himself as the ultimate source and foundation of all",
+      "speaker": "Krishna"
     },
     {
       "id": 12,
@@ -106,7 +128,9 @@
       "text": "bahunam janmanam ante jnanavan mam prapadyate",
       "meaning": "After many births and deaths, he who is actually in knowledge surrenders unto Me, knowing Me to be the cause of all causes and all that is.",
       "reference": "BG 7.19",
-      "tags": ["knowledge", "surrender", "realization"]
+      "tags": ["knowledge", "surrender", "realization"],
+      "context": "Krishna describes the rare soul who reaches full surrender",
+      "speaker": "Krishna"
     },
     {
       "id": 13,
@@ -115,7 +139,9 @@
       "text": "ananyas cintayanto mam ye janah paryupasate",
       "meaning": "But those who always worship Me with exclusive devotion, meditating on My transcendental form — to them I carry what they lack, and I preserve what they have.",
       "reference": "BG 9.22",
-      "tags": ["devotion", "protection", "meditation"]
+      "tags": ["devotion", "protection", "meditation"],
+      "context": "Krishna promises to care for those who worship Him with devotion",
+      "speaker": "Krishna"
     },
     {
       "id": 14,
@@ -124,7 +150,9 @@
       "text": "yat karosi yad asnasi yaj juhosi dadasi yat",
       "meaning": "Whatever you do, whatever you eat, whatever you offer or give away, and whatever austerities you perform — do that, O son of Kunti, as an offering to Me.",
       "reference": "BG 9.27",
-      "tags": ["surrender", "offering", "action"]
+      "tags": ["surrender", "offering", "action"],
+      "context": "Krishna instructs how to transform daily activities into worship",
+      "speaker": "Krishna"
     },
     {
       "id": 15,
@@ -133,7 +161,9 @@
       "text": "man-mana bhava mad-bhakto mad-yaji mam namaskuru",
       "meaning": "Engage your mind always in thinking of Me, become My devotee, offer obeisances to Me, and worship Me. Being completely absorbed in Me, surely you will come to Me.",
       "reference": "BG 9.34",
-      "tags": ["devotion", "remembrance", "worship"]
+      "tags": ["devotion", "remembrance", "worship"],
+      "context": "Krishna gives the essence of spiritual practice in four instructions",
+      "speaker": "Krishna"
     },
     {
       "id": 16,
@@ -142,7 +172,9 @@
       "text": "aham sarvasya prabhavo mattah sarvam pravartate",
       "meaning": "I am the source of all spiritual and material worlds. Everything emanates from Me. The wise who perfectly know this engage in My devotional service.",
       "reference": "BG 10.8",
-      "tags": ["source", "origin", "devotion"]
+      "tags": ["source", "origin", "devotion"],
+      "context": "Krishna reveals His position as the origin of all existence",
+      "speaker": "Krishna"
     },
     {
       "id": 17,
@@ -151,7 +183,9 @@
       "text": "advesta sarva-bhutanam maitrah karuna eva ca",
       "meaning": "One who is not envious but is a kind friend to all living entities, who does not think himself a proprietor and is free from false ego, who is equal in both happiness and distress...",
       "reference": "BG 12.13-14",
-      "tags": ["devotee", "qualities", "friendship"]
+      "tags": ["devotee", "qualities", "friendship"],
+      "context": "Krishna describes the qualities dear to Him in His devotees",
+      "speaker": "Krishna"
     },
     {
       "id": 18,
@@ -160,7 +194,9 @@
       "text": "ye tu dharmamrtam idam yathoktam paryupasate",
       "meaning": "Those who follow this imperishable path of devotional service and who completely engage themselves with faith, making Me the supreme goal, are very, very dear to Me.",
       "reference": "BG 12.20",
-      "tags": ["devotion", "faith", "dear"]
+      "tags": ["devotion", "faith", "dear"],
+      "context": "Krishna declares His special affection for those on the path of devotion",
+      "speaker": "Krishna"
     },
     {
       "id": 19,
@@ -169,7 +205,9 @@
       "text": "amanitvam adambhitvam ahimsa ksantir arjavam",
       "meaning": "Humility; pridelessness; nonviolence; tolerance; simplicity; approaching a bona fide spiritual master; cleanliness; steadiness; self-control...",
       "reference": "BG 13.8-12",
-      "tags": ["qualities", "knowledge", "humility"]
+      "tags": ["qualities", "knowledge", "humility"],
+      "context": "Krishna lists the qualities that constitute true knowledge",
+      "speaker": "Krishna"
     },
     {
       "id": 20,
@@ -178,7 +216,9 @@
       "text": "mamaivamso jiva-loke jiva-bhutah sanatanah",
       "meaning": "The living entities in this conditioned world are My eternal, fragmental parts. Due to the conditioned life, they are struggling very hard with the six senses, which include the mind.",
       "reference": "BG 15.7",
-      "tags": ["soul", "identity", "struggle"]
+      "tags": ["soul", "identity", "struggle"],
+      "context": "Krishna explains the eternal relationship between the soul and the Supreme",
+      "speaker": "Krishna"
     },
     {
       "id": 21,
@@ -187,7 +227,9 @@
       "text": "trividham narakasyedam dvaram nasanam atmanah",
       "meaning": "There are three gates leading to this hell — lust, anger and greed. Every sane man should give these up, for they lead to the degradation of the soul.",
       "reference": "BG 16.21",
-      "tags": ["gates", "destruction", "lust"]
+      "tags": ["gates", "destruction", "lust"],
+      "context": "Krishna warns against the three doors to spiritual destruction",
+      "speaker": "Krishna"
     },
     {
       "id": 22,
@@ -196,7 +238,9 @@
       "text": "sattvanurupa sarvasya sraddha bhavati bharata",
       "meaning": "O son of Bharata, according to one's existence under the various modes of nature, one evolves a particular kind of faith. The living being is said to be of a particular faith according to the modes he has acquired.",
       "reference": "BG 17.3",
-      "tags": ["faith", "modes", "nature"]
+      "tags": ["faith", "modes", "nature"],
+      "context": "Krishna explains how one's faith corresponds to their nature",
+      "speaker": "Krishna"
     },
     {
       "id": 23,
@@ -205,7 +249,9 @@
       "text": "man-mana bhava mad-bhakto mad-yaji mam namaskuru",
       "meaning": "Always think of Me, become My devotee, worship Me and offer your homage unto Me. Thus you will come to Me without fail. I promise you this because you are My very dear friend.",
       "reference": "BG 18.65",
-      "tags": ["devotion", "promise", "remembrance"]
+      "tags": ["devotion", "promise", "remembrance"],
+      "context": "Krishna gives His intimate instruction and promise to Arjuna",
+      "speaker": "Krishna"
     },
     {
       "id": 24,
@@ -214,7 +260,9 @@
       "text": "sarva-dharman parityajya mam ekam saranam vraja",
       "meaning": "Abandon all varieties of religion and just surrender unto Me. I shall deliver you from all sinful reactions. Do not fear.",
       "reference": "BG 18.66",
-      "tags": ["surrender", "fearlessness", "promise"]
+      "tags": ["surrender", "fearlessness", "promise"],
+      "context": "Krishna's ultimate instruction: surrender unto Him alone",
+      "speaker": "Krishna"
     },
     {
       "id": 25,
@@ -223,7 +271,9 @@
       "text": "sri-bhagavan uvaca asocyan anvasocas tvam prajna-vadams ca bhasase",
       "meaning": "The Supreme Personality of Godhead said: While speaking learned words, you are mourning for what is not worthy of grief. Those who are wise lament neither for the living nor for the dead.",
       "reference": "BG 2.11",
-      "tags": ["wisdom", "grief", "soul"]
+      "tags": ["wisdom", "grief", "soul"],
+      "context": "Krishna begins His teaching by addressing Arjuna's misplaced grief",
+      "speaker": "Krishna"
     },
     {
       "id": 26,
@@ -232,7 +282,9 @@
       "text": "dehino smin yatha dehe kaumaram yauvanam jara",
       "meaning": "As the embodied soul continuously passes, in this body, from boyhood to youth to old age, the soul similarly passes into another body at death. A sober person is not bewildered by such a change.",
       "reference": "BG 2.13",
-      "tags": ["soul", "reincarnation", "change"]
+      "tags": ["soul", "reincarnation", "change"],
+      "context": "Krishna explains the soul's journey through different bodies",
+      "speaker": "Krishna"
     },
     {
       "id": 27,
@@ -241,7 +293,9 @@
       "text": "matra-sparas tu kaunteya sitosna-sukha-duhkha-dah",
       "meaning": "O son of Kunti, the nonpermanent appearance of happiness and distress, and their disappearance in due course, are like the appearance and disappearance of winter and summer seasons. They arise from sense perception, O scion of Bharata, and one must learn to tolerate them without being disturbed.",
       "reference": "BG 2.14",
-      "tags": ["tolerance", "happiness", "distress"]
+      "tags": ["tolerance", "happiness", "distress"],
+      "context": "Krishna teaches Arjuna to tolerate dualities with equanimity",
+      "speaker": "Krishna"
     },
     {
       "id": 28,
@@ -250,7 +304,9 @@
       "text": "yam hi na vyathayanty ete purusam purusarsabha",
       "meaning": "O best among men [Arjuna], the person who is not disturbed by happiness and distress and is steady in both is certainly eligible for liberation.",
       "reference": "BG 2.15",
-      "tags": ["equanimity", "liberation", "steadiness"]
+      "tags": ["equanimity", "liberation", "steadiness"],
+      "context": "Krishna describes the qualification for liberation from material existence",
+      "speaker": "Krishna"
     },
     {
       "id": 29,
@@ -259,7 +315,9 @@
       "text": "na jayate mriyate va kadacin nayam bhutva bhavita va na bhuyah",
       "meaning": "For the soul there is neither birth nor death at any time. He has not come into being, does not come into being, and will not come into being. He is unborn, eternal, ever-existing and primeval. He is not slain when the body is slain.",
       "reference": "BG 2.20",
-      "tags": ["soul", "eternal", "birthless"]
+      "tags": ["soul", "eternal", "birthless"],
+      "context": "Krishna reveals the eternal nature of the individual soul",
+      "speaker": "Krishna"
     },
     {
       "id": 30,
@@ -268,7 +326,9 @@
       "text": "vasamsi jirnani yatha vihaya navani grhnati naro parani",
       "meaning": "As a person puts on new garments, giving up old ones, the soul similarly accepts new material bodies, giving up the old and useless ones.",
       "reference": "BG 2.22",
-      "tags": ["soul", "body", "change"]
+      "tags": ["soul", "body", "change"],
+      "context": "Krishna uses the analogy of changing clothes to explain reincarnation",
+      "speaker": "Krishna"
     }
   ]
 }

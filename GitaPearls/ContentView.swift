@@ -10,6 +10,16 @@ struct ContentView: View {
     
     @State private var verses: [Verse] = []
     
+    var todaysVerse: Verse? {
+        guard !verses.isEmpty else { return nil }
+        let calendar = Calendar.current
+        let today = calendar.dateComponents([.year, .month, .day], from: Date())
+        let seed = (today.year ?? 0) * 10000 + (today.month ?? 0) * 100 + (today.day ?? 0)
+        var rng = SeededRandom(seed: seed)
+        let index = rng.nextInt(in: 0..<verses.count)
+        return verses[index]
+    }
+    
     var filteredVerses: [Verse] {
         var result = verses
         
@@ -36,19 +46,28 @@ struct ContentView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                 
-                // Favorites Toggle
-                Picker("Filter", selection: $showFavoritesOnly) {
-                    Text("All Verses").tag(false)
-                    Text("Favorites Only").tag(true)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                .padding(.bottom, 8)
-                
-                // Verse List
-                List(filteredVerses) { verse in
-                    NavigationLink(value: verse) {
-                        VerseRowView(verse: verse)
+                // Verse List (with Today's Verse at top when not searching/favoriting)
+                List {
+                    if !showFavoritesOnly && searchText.isEmpty, let verse = todaysVerse {
+                        Section {
+                            NavigationLink(value: verse) {
+                                TodaysVerseCard(verse: verse)
+                            }
+                            .listRowBackground(Color(.secondarySystemBackground))
+                        } header: {
+                            Text("Today's Verse")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .textCase(nil)
+                        }
+                    }
+                    
+                    Section {
+                        ForEach(filteredVerses) { verse in
+                            NavigationLink(value: verse) {
+                                VerseRowView(verse: verse)
+                            }
+                        }
                     }
                 }
                 .listStyle(.plain)
@@ -65,8 +84,20 @@ struct ContentView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { showSettings = true }) {
-                        Image(systemName: "gear")
+                    Menu {
+                        Button(action: { showFavoritesOnly = false }) {
+                            Label("All Verses", systemImage: showFavoritesOnly ? "circle" : "checkmark.circle.fill")
+                        }
+                        Button(action: { showFavoritesOnly = true }) {
+                            Label("Favorites Only", systemImage: showFavoritesOnly ? "heart.circle.fill" : "heart")
+                        }
+                        Divider()
+                        Button(action: { showSettings = true }) {
+                            Label("Settings", systemImage: "gear")
+                        }
+                    } label: {
+                        Image(systemName: showFavoritesOnly ? "heart.circle.fill" : "line.3.horizontal.decrease.circle")
+                            .foregroundColor(showFavoritesOnly ? .red : .primary)
                     }
                 }
             }
@@ -121,6 +152,74 @@ struct SearchBar: View {
         .padding(10)
         .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
+    }
+}
+
+// MARK: - Today's Verse Card
+
+struct TodaysVerseCard: View {
+    let verse: Verse
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(verse.reference)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+                Spacer()
+                Image(systemName: "sparkles")
+                    .font(.caption2)
+                    .foregroundColor(.orange)
+            }
+            
+            Text(verse.meaning)
+                .font(.callout)
+                .lineLimit(3)
+                .lineSpacing(3)
+            
+            if let speaker = verse.speaker, let context = verse.context {
+                HStack(spacing: 4) {
+                    Image(systemName: "person.circle")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                    Text("\(speaker) — \(context)")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+// MARK: - Seeded Random
+
+struct SeededRandom {
+    private var state: UInt64
+    
+    init(seed: Int) {
+        var seed = UInt64(bitPattern: Int64(seed))
+        seed = seed &+ 0x9E3779B97F4A7C15
+        var z = seed
+        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
+        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
+        state = z ^ (z >> 31)
+    }
+    
+    mutating func next() -> UInt64 {
+        state = state &+ 0x9E3779B97F4A7C15
+        var z = state
+        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
+        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
+        return z ^ (z >> 31)
+    }
+    
+    mutating func nextInt(in range: Range<Int>) -> Int {
+        let rangeWidth = UInt64(range.upperBound - range.lowerBound)
+        let random = next() % rangeWidth
+        return range.lowerBound + Int(random)
     }
 }
 
