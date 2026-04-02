@@ -293,12 +293,26 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 | **13b** | Small widget font fix (callout → footnote to match medium) | ✅ Completed (2026-04-02) |
 | **13c** | Large widget: favorite indicator, tags, collection names | ✅ Completed (2026-04-02) |
 | **13d** | Collections expanded from 6 to 12, referencing all 150 verses | ✅ Completed (2026-04-02) |
-| **13e** | Device testing on Harish's iPhone | ✅ In progress (2026-04-02) |
-| **14** | Add collections.json to widget target membership in Xcode | ⏳ Pending (manual in Xcode) |
-| **15** | App Store prep (screenshots, privacy policy) | ⏳ Pending |
-| **16** | Submission | ⏳ Pending |
+| **13e** | Device testing on Harish's iPhone | ✅ Completed (2026-04-02) — app, widgets, search, favorites, collections, reflections, dark mode all working |
+| **13f** | Privacy policy hosted on GitHub Pages | ✅ Completed (2026-04-03) — https://blizzardbase.github.io/GitaPearls/privacy.html |
+| **13g** | Repo made public | ✅ Completed (2026-04-03) — https://github.com/blizzardbase/GitaPearls |
+| **14** | App Store screenshots | ⏳ Pending |
+| **15** | Archive and upload to App Store Connect | ⏳ Pending |
+| **16** | App Store Connect listing + submit | ⏳ Pending |
 
-**Current Status:** All Swift source code is complete. App builds and runs on device. Key features implemented:
+**Current Status:** App is code-complete, tested on device, and ready for App Store prep. All features working.
+
+**Key facts:**
+- Bundle ID: `com.blizzardbase.gitapearls`
+- Team: Harish Vasudevan
+- Contact email: contact@blizzardcollective.xyz
+- GitHub: https://github.com/blizzardbase/GitaPearls (public)
+- Privacy policy: https://blizzardbase.github.io/GitaPearls/privacy.html
+- App Store checklist on Notion: https://www.notion.so/3327ed89602581f0bb5fd292dcf3e4c9
+
+**All features implemented:**
+- ✅ 150 verses across all 18 Gita chapters
+- ✅ 12 thematic collections
 - ✅ Seeded random for synchronized verse display across all widgets
 - ✅ VerseDetailView with proper layout (Sanskrit → Meaning → Tags)
 - ✅ Dark mode support throughout app and widgets
@@ -308,23 +322,22 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 - ✅ App icon generated: glowing pearl with Om on saffron/gold gradient
 - ✅ Widget setup onboarding: home screen focused instructions
 - ✅ Verse-of-the-day with speaker and context card
-- ✅ 12 thematic collections covering all 18 chapters
 - ✅ Personal reflection journal per verse
 - ✅ SeededRandom unified across app and widget targets
 - ✅ Search bar across all 4 tabs (All, Favorites, Collections, Reflections)
-- ✅ Bundle ID: com.blizzardbase.gitapearls (Xcode + source files + entitlements)
-- ✅ 150 verses across all 18 chapters
-- ✅ Apple Developer account approved, signing configured (Team: Harish Vasudevan)
 - ✅ containerBackground for iOS 17+ widget compatibility
 - ✅ Small widget font matched to medium widget
 
-**Next Steps:**
-1. Add collections.json to widget target membership in Xcode (for collection names in large widget)
-2. Finish device testing (dark mode, search, favorites, reflections, all widget sizes)
-3. Take App Store screenshots (light/dark mode, all widget sizes)
-4. Host privacy policy on GitHub Pages (`docs/privacy.html` ready)
-6. Configure App Store listing with privacy policy URL
-7. Submit to App Store
+**Next session — 3 steps to App Store:**
+1. **Screenshots** — need 6.9" (iPhone 16 Pro Max, 1320x2868) and 5.5" (iPhone 8 Plus, 1242x2208). Use Simulator. Need: app list, verse detail, widget on home screen, widget on lock screen.
+2. **Archive & Upload** — Xcode → Product → Archive → Distribute to App Store Connect
+3. **App Store Connect listing** — fill in name, subtitle, description, keywords, screenshots, review notes, then submit. All details on the Notion checklist.
+
+**Pre-archive checks still needed:**
+- Verify launch screen (no white flash)
+- Set Version 1.0, Build 1
+- Test on Simulator for SE and Pro Max sizes
+- Remove any debug/test code
 
 ---
 
