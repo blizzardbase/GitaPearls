@@ -14,7 +14,7 @@ class VerseStore: ObservableObject {
     
     init() {
         // Use App Group for sharing with widget
-        self.defaults = UserDefaults(suiteName: "group.com.yourname.gitapearls") ?? .standard
+        self.defaults = UserDefaults(suiteName: "group.com.blizzardbase.gitapearls") ?? .standard
         loadFavorites()
         loadReflections()
     }

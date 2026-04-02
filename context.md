@@ -18,7 +18,7 @@ iOS app with **home screen and lock screen widgets** displaying Bhagavad Gita ve
 | **Data Storage** | UserDefaults (favorites as ID array) + bundled JSON |
 | **Widget Provider** | TimelineProvider — home screen widgets are primary, lock screen widgets secondary |
 | **Refresh Expectation** | System-managed, best-effort, UI labels as "throughout the day" |
-| **UI Structure** | Single scrollable list + favorites toggle + settings sheet + widget setup onboarding (home screen focused) |
+| **UI Structure** | Single scrollable list + favorites toggle + collections + reflections + settings sheet + widget setup onboarding (home screen focused) |
 | **iOS Version** | iOS 16+ (for lock screen widget support) |
 
 ---
@@ -148,8 +148,8 @@ struct GitaEntry: TimelineEntry {
 ## Main App UI
 
 ### Single Main View Layout
-- **Search bar** at top — filters list in real-time
-- **Segmented toggle** — "All" vs "Favorites Only"
+- **Search bar** at top — filters list in real-time (available on All, Favorites, Collections, and Reflections tabs)
+- **Segmented toggle** — "All", "Favorites", "Collections", "Reflections"
 - **Gear icon** (toolbar trailing) — opens Settings sheet
 - **Question mark icon** (toolbar leading) — opens Widget Setup onboarding
 
@@ -285,31 +285,46 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 | **8** | VerseDetailView layout fix (tags at bottom, no overlap) | ✅ Completed |
 | **9** | Dark mode audit and fixes | ✅ Completed |
 | **10** | App icon design and generation | ✅ Completed |
-| **11** | Testing on device, bug fixes | ⏳ Pending |
-| **12** | App Store prep (screenshots, privacy policy) | ⏳ Pending |
-| **13** | Submission | ⏳ Pending |
+| **11a** | Bundle ID updated to com.blizzardbase.gitapearls | ✅ Completed (2026-04-02) |
+| **11b** | Verses expanded from 30 to 150 (all 18 chapters) | ✅ Completed (2026-04-02) |
+| **11c** | Developer account activated | ✅ Completed (2026-04-02) |
+| **12** | Update bundle ID in Xcode project settings (both targets + App Group) | ✅ Completed (2026-04-02) |
+| **13a** | containerBackground API fix for iOS 17+ widgets | ✅ Completed (2026-04-02) |
+| **13b** | Small widget font fix (callout → footnote to match medium) | ✅ Completed (2026-04-02) |
+| **13c** | Large widget: favorite indicator, tags, collection names | ✅ Completed (2026-04-02) |
+| **13d** | Collections expanded from 6 to 12, referencing all 150 verses | ✅ Completed (2026-04-02) |
+| **13e** | Device testing on Harish's iPhone | ✅ In progress (2026-04-02) |
+| **14** | Add collections.json to widget target membership in Xcode | ⏳ Pending (manual in Xcode) |
+| **15** | App Store prep (screenshots, privacy policy) | ⏳ Pending |
+| **16** | Submission | ⏳ Pending |
 
-**Current Status:** All Swift source code is complete. Key features implemented:
+**Current Status:** All Swift source code is complete. App builds and runs on device. Key features implemented:
 - ✅ Seeded random for synchronized verse display across all widgets
 - ✅ VerseDetailView with proper layout (Sanskrit → Meaning → Tags)
 - ✅ Dark mode support throughout app and widgets
 - ✅ Deep linking from all widget types
 - ✅ Medium widget: reference + meaning only (no Sanskrit)
-- ✅ Large widget: reference + Sanskrit + divider + meaning
+- ✅ Large widget: reference + Sanskrit + divider + meaning + favorite heart + tags + collection names
 - ✅ App icon generated: glowing pearl with Om on saffron/gold gradient
 - ✅ Widget setup onboarding: home screen focused instructions
 - ✅ Verse-of-the-day with speaker and context card
-- ✅ Thematic collections (6 curated verse collections)
+- ✅ 12 thematic collections covering all 18 chapters
 - ✅ Personal reflection journal per verse
 - ✅ SeededRandom unified across app and widget targets
+- ✅ Search bar across all 4 tabs (All, Favorites, Collections, Reflections)
+- ✅ Bundle ID: com.blizzardbase.gitapearls (Xcode + source files + entitlements)
+- ✅ 150 verses across all 18 chapters
+- ✅ Apple Developer account approved, signing configured (Team: Harish Vasudevan)
+- ✅ containerBackground for iOS 17+ widget compatibility
+- ✅ Small widget font matched to medium widget
 
 **Next Steps:**
-1. Build and test on physical device
-2. Verify dark mode appearance on device
+1. Add collections.json to widget target membership in Xcode (for collection names in large widget)
+2. Finish device testing (dark mode, search, favorites, reflections, all widget sizes)
 3. Take App Store screenshots (light/dark mode, all widget sizes)
 4. Host privacy policy on GitHub Pages (`docs/privacy.html` ready)
-5. Configure App Store listing with privacy policy URL
-6. Submit to App Store
+6. Configure App Store listing with privacy policy URL
+7. Submit to App Store
 
 ---
 

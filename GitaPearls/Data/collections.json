@@ -4,37 +4,73 @@
       "id": 1,
       "title": "When You Feel Anxious",
       "description": "The Bhagavad Gita teaches that anxiety arises from attachment to outcomes and identification with the mind's restless nature. These verses offer guidance on cultivating steadiness, tolerating life's dualities, and finding calm through self-mastery.",
-      "verseIDs": [8, 9, 10, 27, 28]
+      "verseIDs": [8, 9, 10, 27, 28, 39, 40, 63, 64, 67]
     },
     {
       "id": 2,
       "title": "On Making Difficult Decisions",
       "description": "Arjuna himself faced an impossible choice between duty and compassion. The Gita's wisdom on decisive action emphasizes performing one's duty with equanimity, seeking higher counsel, and surrendering the fruits of choice.",
-      "verseIDs": [1, 2, 11, 24, 25, 3]
+      "verseIDs": [1, 2, 36, 42, 48, 53, 98, 129, 141, 147]
     },
     {
       "id": 3,
       "title": "Detachment from Outcomes",
       "description": "True freedom comes not from abandoning action but from releasing the anxiety of results. These verses reveal the art of dedicated work performed as offering, free from the bondage of expectation.",
-      "verseIDs": [1, 2, 3, 4, 14, 22]
+      "verseIDs": [1, 2, 3, 4, 14, 44, 47, 60, 104, 135, 136]
     },
     {
       "id": 4,
       "title": "On Duty and Purpose",
       "description": "Each soul has its own path and purpose. The Gita illuminates how to discover one's unique duty, perform it with devotion, and understand that all sincere work becomes spiritual when offered with the right consciousness.",
-      "verseIDs": [1, 2, 4, 6, 14, 16]
+      "verseIDs": [1, 4, 43, 45, 48, 77, 98, 137, 140, 141]
     },
     {
       "id": 5,
       "title": "When Facing Loss or Grief",
       "description": "The wise neither lament the living nor the dead. These verses offer profound comfort about the eternal nature of the soul, the inevitability of change, and the perspective that transforms grief into understanding.",
-      "verseIDs": [25, 26, 29, 30, 13]
+      "verseIDs": [25, 26, 29, 30, 32, 37, 38, 69, 80, 97]
     },
     {
       "id": 6,
       "title": "Finding Inner Peace",
-      "description": "Peace is not found in external circumstances but in the conquest of the mind and realization of one's eternal nature. These verses point toward the stillness available through devotion, knowledge, and equanimity.",
-      "verseIDs": [7, 8, 9, 10, 28, 15]
+      "description": "Peace is not found in external circumstances but in the conquest of the mind and realisation of one's eternal nature. These verses point toward the stillness available through devotion, knowledge, and equanimity.",
+      "verseIDs": [7, 41, 64, 65, 66, 105, 118, 133, 139, 142, 145]
+    },
+    {
+      "id": 7,
+      "title": "The Nature of the Self",
+      "description": "Who are you beyond the body, beyond the mind? The Gita reveals the soul as eternal, unchanging, and beyond destruction. These verses illuminate the true nature of the Self that persists through all change.",
+      "verseIDs": [20, 26, 29, 30, 37, 50, 107, 110, 111, 112]
+    },
+    {
+      "id": 8,
+      "title": "Devotion and Surrender",
+      "description": "The path of devotion is the Gita's most intimate teaching. These verses describe the relationship between the soul and the Divine, and how wholehearted surrender leads to grace, protection, and liberation.",
+      "verseIDs": [13, 15, 23, 24, 85, 86, 87, 100, 101, 143, 145]
+    },
+    {
+      "id": 9,
+      "title": "Knowledge and Wisdom",
+      "description": "Knowledge is the greatest purifier. From understanding the nature of action to seeing the unity behind all diversity, these verses chart the path of wisdom that leads to lasting freedom.",
+      "verseIDs": [3, 19, 51, 55, 56, 57, 61, 82, 108, 124, 138]
+    },
+    {
+      "id": 10,
+      "title": "Mastering the Mind",
+      "description": "The mind is restless, turbulent, and hard to control, yet it can be trained through practice and detachment. These verses offer a practical guide to taming the mind and making it your greatest ally.",
+      "verseIDs": [8, 9, 10, 39, 40, 49, 50, 66, 67, 102, 133]
+    },
+    {
+      "id": 11,
+      "title": "The Divine in Everything",
+      "description": "Krishna reveals himself as the essence within all things - the taste in water, the light of the sun, the syllable Om. These verses awaken us to see the sacred woven into every part of creation.",
+      "verseIDs": [11, 16, 71, 83, 84, 90, 91, 93, 95, 120, 121, 122]
+    },
+    {
+      "id": 12,
+      "title": "Living with Equanimity",
+      "description": "Balanced in pleasure and pain, honour and disgrace, success and failure - equanimity is the hallmark of wisdom. These verses teach how to remain steady through life's inevitable ups and downs.",
+      "verseIDs": [2, 27, 28, 58, 62, 64, 68, 106, 111, 116, 142]
     }
   ]
 }

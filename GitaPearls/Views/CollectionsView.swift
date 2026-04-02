@@ -4,23 +4,62 @@ struct CollectionsView: View {
     @State private var collections: [Collection] = []
     @State private var verses: [Verse] = []
     @State private var selectedCollectionID: Int?
+    @State private var searchText = ""
+    
+    var filteredCollections: [Collection] {
+        guard !searchText.isEmpty else { return collections }
+        return collections.filter { collection in
+            if collection.title.localizedCaseInsensitiveContains(searchText) {
+                return true
+            }
+            let collectionVerseIDs = collection.verseIDs
+            let matchingVerses = verses.filter { verse in
+                collectionVerseIDs.contains(verse.id) &&
+                (verse.meaning.localizedCaseInsensitiveContains(searchText) ||
+                 verse.reference.localizedCaseInsensitiveContains(searchText))
+            }
+            return !matchingVerses.isEmpty
+        }
+    }
+    
+    func filteredVerses(for collection: Collection) -> [Verse] {
+        guard !searchText.isEmpty else {
+            return allVerses(for: collection)
+        }
+        return allVerses(for: collection).filter { verse in
+            verse.meaning.localizedCaseInsensitiveContains(searchText) ||
+            verse.reference.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+    
+    func allVerses(for collection: Collection) -> [Verse] {
+        verses.filter { collection.verseIDs.contains($0.id) }
+            .sorted { collection.verseIDs.firstIndex(of: $0.id) ?? 0 < collection.verseIDs.firstIndex(of: $1.id) ?? 0 }
+    }
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVStack(spacing: 16) {
-                    ForEach(collections) { collection in
-                        NavigationLink(value: collection) {
-                            CollectionCard(collection: collection)
+            VStack(spacing: 0) {
+                SearchBar(text: $searchText)
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(filteredCollections) { collection in
+                            NavigationLink(value: collection) {
+                                CollectionCard(collection: collection, filteredVerses: filteredVerses(for: collection), isSearching: !searchText.isEmpty)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("Collections")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search collections...")
             .navigationDestination(for: Collection.self) { collection in
-                CollectionDetailView(collection: collection, allVerses: verses)
+                CollectionDetailView(collection: collection, allVerses: verses, searchText: searchText)
             }
             .onAppear {
                 loadCollections()
@@ -52,6 +91,12 @@ struct CollectionsView: View {
 
 struct CollectionCard: View {
     let collection: Collection
+    var filteredVerses: [Verse]?
+    var isSearching: Bool = false
+    
+    var verseCount: Int {
+        filteredVerses?.count ?? collection.verseIDs.count
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -75,9 +120,15 @@ struct CollectionCard: View {
                 Image(systemName: "book.pages")
                     .font(.caption)
                     .foregroundColor(.orange)
-                Text("\(collection.verseIDs.count) verses")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                if isSearching, let filtered = filteredVerses {
+                    Text("\(filtered.count) matching verses")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                } else {
+                    Text("\(verseCount) verses")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
             .padding(.top, 4)
         }
@@ -92,10 +143,20 @@ struct CollectionCard: View {
 struct CollectionDetailView: View {
     let collection: Collection
     let allVerses: [Verse]
+    var searchText: String = ""
     
     var collectionVerses: [Verse] {
-        allVerses.filter { collection.verseIDs.contains($0.id) }
+        var verses = allVerses.filter { collection.verseIDs.contains($0.id) }
             .sorted { collection.verseIDs.firstIndex(of: $0.id) ?? 0 < collection.verseIDs.firstIndex(of: $1.id) ?? 0 }
+        
+        if !searchText.isEmpty {
+            verses = verses.filter { verse in
+                verse.meaning.localizedCaseInsensitiveContains(searchText) ||
+                verse.reference.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+        
+        return verses
     }
     
     var body: some View {

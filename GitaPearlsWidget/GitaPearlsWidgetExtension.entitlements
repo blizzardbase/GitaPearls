@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.yourname.gitapearls</string>
+		<string>group.com.blizzardbase.gitapearls</string>
 	</array>
 </dict>
 </plist>

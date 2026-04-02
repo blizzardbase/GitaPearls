@@ -4,72 +4,106 @@ import SwiftUI
 struct GitaEntry: TimelineEntry {
     let date: Date
     let verse: Verse
+    let isFavorite: Bool
+    let collectionNames: [String]
 }
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> GitaEntry {
-        GitaEntry(date: Date(), verse: Verse.sample)
+        GitaEntry(date: Date(), verse: Verse.sample, isFavorite: false, collectionNames: ["Detachment from Outcomes"])
     }
-    
+
     func getSnapshot(in context: Context, completion: @escaping (GitaEntry) -> Void) {
-        let entry = GitaEntry(date: Date(), verse: loadVerse(for: Date()))
+        let result = loadVerse(for: Date())
+        let entry = GitaEntry(date: Date(), verse: result.verse, isFavorite: result.isFavorite, collectionNames: result.collectionNames)
         completion(entry)
     }
-    
+
     func getTimeline(in context: Context, completion: @escaping (Timeline<GitaEntry>) -> Void) {
         var entries: [GitaEntry] = []
-        
+
         // Generate 12 entries over 24 hours (every 2 hours)
         let currentDate = Date()
         for hourOffset in stride(from: 0, through: 22, by: 2) {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let verse = loadVerse(for: entryDate)
-            let entry = GitaEntry(date: entryDate, verse: verse)
+            let result = loadVerse(for: entryDate)
+            let entry = GitaEntry(date: entryDate, verse: result.verse, isFavorite: result.isFavorite, collectionNames: result.collectionNames)
             entries.append(entry)
         }
-        
+
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
-    
-    private func loadVerse(for date: Date) -> Verse {
+
+    private struct VerseResult {
+        let verse: Verse
+        let isFavorite: Bool
+        let collectionNames: [String]
+    }
+
+    private func loadCollections() -> [Collection] {
+        guard let url = Bundle.main.url(forResource: "collections", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let decoded = try? JSONDecoder().decode([String: [Collection]].self, from: data) else {
+            return []
+        }
+        return decoded["collections"] ?? []
+    }
+
+    private func loadVerse(for date: Date) -> VerseResult {
         // Load from widget's own bundle
         guard let url = Bundle.main.url(forResource: "verses", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let decoded = try? JSONDecoder().decode([String: [Verse]].self, from: data),
               let verses = decoded["verses"],
               !verses.isEmpty else {
-            return Verse.sample
+            return VerseResult(verse: Verse.sample, isFavorite: false, collectionNames: [])
         }
-        
+
         // Get favorites from App Group UserDefaults
-        let defaults = UserDefaults(suiteName: "group.com.yourname.gitapearls")
+        let defaults = UserDefaults(suiteName: "group.com.blizzardbase.gitapearls")
         let favoriteIDs = defaults?.array(forKey: "favoriteVerseIDs") as? [Int] ?? []
-        
+
         // Create seeded random based on date components (year, month, day, hour)
         // This ensures all widgets show the same verse for the same time slot
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
-        let seed = (components.year ?? 0) * 1000000 + 
-                   (components.month ?? 0) * 10000 + 
-                   (components.day ?? 0) * 100 + 
+        let seed = (components.year ?? 0) * 1000000 +
+                   (components.month ?? 0) * 10000 +
+                   (components.day ?? 0) * 100 +
                    (components.hour ?? 0)
-        
+
         // 30% chance to pick from favorites (same seeded decision)
         var seededRNG = SeededRandom(seed: seed)
-        let isFavorite = !favoriteIDs.isEmpty && seededRNG.randomInt(in: 0...9) < 3
-        
-        if isFavorite {
+        let pickedFromFavorites = !favoriteIDs.isEmpty && seededRNG.randomInt(in: 0...9) < 3
+
+        let selectedVerse: Verse
+        var isFavorite = false
+
+        if pickedFromFavorites {
             let favoriteIndex = seededRNG.randomInt(in: 0..<favoriteIDs.count)
             let favoriteID = favoriteIDs[favoriteIndex]
             if let verse = verses.first(where: { $0.id == favoriteID }) {
-                return verse
+                selectedVerse = verse
+                isFavorite = true
+            } else {
+                let verseIndex = seededRNG.randomInt(in: 0..<verses.count)
+                selectedVerse = verses[verseIndex]
+                isFavorite = favoriteIDs.contains(selectedVerse.id)
             }
+        } else {
+            let verseIndex = seededRNG.randomInt(in: 0..<verses.count)
+            selectedVerse = verses[verseIndex]
+            isFavorite = favoriteIDs.contains(selectedVerse.id)
         }
-        
-        // Pick from all verses using seeded random
-        let verseIndex = seededRNG.randomInt(in: 0..<verses.count)
-        return verses[verseIndex]
+
+        // Find collections this verse belongs to
+        let collections = loadCollections()
+        let collectionNames = collections
+            .filter { $0.verseIDs.contains(selectedVerse.id) }
+            .map { $0.title }
+
+        return VerseResult(verse: selectedVerse, isFavorite: isFavorite, collectionNames: collectionNames)
     }
 }
 
@@ -100,17 +134,30 @@ struct GitaWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
     
     var body: some View {
-        switch family {
-        case .accessoryInline:
-            InlineWidgetView(verse: entry.verse)
-        case .accessoryRectangular:
-            RectangularWidgetView(verse: entry.verse)
-        case .accessoryCircular:
-            CircularWidgetView(verse: entry.verse)
-        case .systemSmall, .systemMedium, .systemLarge:
-            HomeWidgetView(entry: entry)
-        default:
-            RectangularWidgetView(verse: entry.verse)
+        if #available(iOSApplicationExtension 17.0, *) {
+            widgetContent
+                .containerBackground(for: .widget) {
+                    Color(.systemBackground)
+                }
+        } else {
+            widgetContent
+        }
+    }
+
+    private var widgetContent: some View {
+        Group {
+            switch family {
+            case .accessoryInline:
+                InlineWidgetView(verse: entry.verse)
+            case .accessoryRectangular:
+                RectangularWidgetView(verse: entry.verse)
+            case .accessoryCircular:
+                CircularWidgetView(verse: entry.verse)
+            case .systemSmall, .systemMedium, .systemLarge:
+                HomeWidgetView(entry: entry)
+            default:
+                RectangularWidgetView(verse: entry.verse)
+            }
         }
     }
 }
