@@ -41,10 +41,17 @@ struct Provider: TimelineProvider {
         let collectionNames: [String]
     }
 
-    private func loadCollections() -> [Collection] {
+    private struct WidgetCollection: Codable {
+        let id: Int
+        let title: String
+        let description: String
+        let verseIDs: [Int]
+    }
+
+    private func loadCollections() -> [WidgetCollection] {
         guard let url = Bundle.main.url(forResource: "collections", withExtension: "json"),
               let data = try? Data(contentsOf: url),
-              let decoded = try? JSONDecoder().decode([String: [Collection]].self, from: data) else {
+              let decoded = try? JSONDecoder().decode([String: [WidgetCollection]].self, from: data) else {
             return []
         }
         return decoded["collections"] ?? []
@@ -165,7 +172,7 @@ struct GitaWidgetEntryView: View {
 // MARK: - Previews for all lock screen widget families
 
 struct GitaWidgetEntryView_Previews: PreviewProvider {
-    static let sampleEntry = GitaEntry(date: Date(), verse: Verse.sample)
+    static let sampleEntry = GitaEntry(date: Date(), verse: Verse.sample, isFavorite: true, collectionNames: ["Detachment from Outcomes"])
     
     static var previews: some View {
         Group {

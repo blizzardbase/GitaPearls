@@ -133,7 +133,7 @@ struct LargeHomeWidget: View {
 // MARK: - Previews
 
 struct HomeWidgetView_Previews: PreviewProvider {
-    static let sampleEntry = GitaEntry(date: Date(), verse: Verse.sample)
+    static let sampleEntry = GitaEntry(date: Date(), verse: Verse.sample, isFavorite: true, collectionNames: ["Detachment from Outcomes"])
     
     static var previews: some View {
         Group {
