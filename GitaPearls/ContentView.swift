@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var viewMode: ViewMode = .all
     
     @State private var verses: [Verse] = []
+    @State private var navigationPath = NavigationPath()
     
     var todaysVerse: Verse? {
         guard !verses.isEmpty else { return nil }
@@ -46,7 +47,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             VStack(spacing: 0) {
                 // View Mode Segmented Control
                 Picker("View Mode", selection: $viewMode) {
@@ -75,12 +76,14 @@ struct ContentView: View {
                     Button(action: { showWidgetSetup = true }) {
                         Image(systemName: "questionmark.circle")
                     }
+                    .accessibilityLabel("Widget Setup Guide")
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showSettings = true }) {
                         Image(systemName: "gear")
                     }
+                    .accessibilityLabel("Settings")
                 }
             }
             .sheet(isPresented: $showSettings) {
@@ -89,16 +92,18 @@ struct ContentView: View {
             .sheet(isPresented: $showWidgetSetup) {
                 WidgetSetupSheet()
             }
+            .navigationDestination(for: Verse.self) { verse in
+                VerseDetailView(verse: verse)
+            }
         }
         .onAppear {
             loadVerses()
         }
         .onChange(of: selectedVerseID) { newID in
-            if let id = newID,
-               let _ = verses.first(where: { $0.id == id }) {
-                // Navigate to verse detail
-                // This would require NavigationPath management
-            }
+            guard let id = newID,
+                  let verse = verses.first(where: { $0.id == id }) else { return }
+            navigationPath.append(verse)
+            selectedVerseID = nil
         }
     }
     
@@ -135,9 +140,6 @@ struct ContentView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationDestination(for: Verse.self) { verse in
-                VerseDetailView(verse: verse)
-            }
         }
     }
     
@@ -149,6 +151,11 @@ struct ContentView: View {
         }
         
         verses = decoded["verses"] ?? []
+        if let id = selectedVerseID,
+           let verse = verses.first(where: { $0.id == id }) {
+            navigationPath.append(verse)
+            selectedVerseID = nil
+        }
     }
 }
 
