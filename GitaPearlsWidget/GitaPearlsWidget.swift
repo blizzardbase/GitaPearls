@@ -14,19 +14,27 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (GitaEntry) -> Void) {
-        let result = loadVerse(for: Date())
-        let entry = GitaEntry(date: Date(), verse: result.verse, isFavorite: result.isFavorite, collectionNames: result.collectionNames)
+        let now = Date()
+        let verses = loadAllVerses()
+        let collections = loadCollections()
+        let favoriteIDs = loadFavoriteIDs()
+        let result = makeVerseResult(for: now, verses: verses, favoriteIDs: favoriteIDs, collections: collections)
+        let entry = GitaEntry(date: now, verse: result.verse, isFavorite: result.isFavorite, collectionNames: result.collectionNames)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<GitaEntry>) -> Void) {
-        var entries: [GitaEntry] = []
+        // Decode JSON and read UserDefaults once per timeline generation
+        let verses = loadAllVerses()
+        let collections = loadCollections()
+        let favoriteIDs = loadFavoriteIDs()
 
+        var entries: [GitaEntry] = []
         // Generate 12 entries over 24 hours (every 2 hours)
         let currentDate = Date()
         for hourOffset in stride(from: 0, through: 22, by: 2) {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let result = loadVerse(for: entryDate)
+            let result = makeVerseResult(for: entryDate, verses: verses, favoriteIDs: favoriteIDs, collections: collections)
             let entry = GitaEntry(date: entryDate, verse: result.verse, isFavorite: result.isFavorite, collectionNames: result.collectionNames)
             entries.append(entry)
         }
@@ -48,6 +56,16 @@ struct Provider: TimelineProvider {
         let verseIDs: [Int]
     }
 
+    private func loadAllVerses() -> [Verse] {
+        guard let url = Bundle.main.url(forResource: "verses", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let decoded = try? JSONDecoder().decode([String: [Verse]].self, from: data),
+              let verses = decoded["verses"] else {
+            return []
+        }
+        return verses
+    }
+
     private func loadCollections() -> [WidgetCollection] {
         guard let url = Bundle.main.url(forResource: "collections", withExtension: "json"),
               let data = try? Data(contentsOf: url),
@@ -57,19 +75,15 @@ struct Provider: TimelineProvider {
         return decoded["collections"] ?? []
     }
 
-    private func loadVerse(for date: Date) -> VerseResult {
-        // Load from widget's own bundle
-        guard let url = Bundle.main.url(forResource: "verses", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let decoded = try? JSONDecoder().decode([String: [Verse]].self, from: data),
-              let verses = decoded["verses"],
-              !verses.isEmpty else {
+    private func loadFavoriteIDs() -> [Int] {
+        let defaults = UserDefaults(suiteName: "group.com.blizzardbase.gitapearls")
+        return (defaults?.array(forKey: "favoriteVerseIDs") as? [Int] ?? []).sorted()
+    }
+
+    private func makeVerseResult(for date: Date, verses: [Verse], favoriteIDs: [Int], collections: [WidgetCollection]) -> VerseResult {
+        guard !verses.isEmpty else {
             return VerseResult(verse: Verse.sample, isFavorite: false, collectionNames: [])
         }
-
-        // Get favorites from App Group UserDefaults
-        let defaults = UserDefaults(suiteName: "group.com.blizzardbase.gitapearls")
-        let favoriteIDs = defaults?.array(forKey: "favoriteVerseIDs") as? [Int] ?? []
 
         // Create seeded random based on date components (year, month, day, hour)
         // This ensures all widgets show the same verse for the same time slot
@@ -104,8 +118,6 @@ struct Provider: TimelineProvider {
             isFavorite = favoriteIDs.contains(selectedVerse.id)
         }
 
-        // Find collections this verse belongs to
-        let collections = loadCollections()
         let collectionNames = collections
             .filter { $0.verseIDs.contains(selectedVerse.id) }
             .map { $0.title }

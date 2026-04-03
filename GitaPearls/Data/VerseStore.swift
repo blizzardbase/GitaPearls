@@ -5,7 +5,6 @@ class VerseStore: ObservableObject {
     
     private let defaults: UserDefaults
     private let favoriteVerseIDsKey = "favoriteVerseIDs"
-    private let lastDisplayedVerseIDKey = "lastDisplayedVerseID"
     private let hasCompletedOnboardingKey = "hasCompletedOnboarding"
     private let reflectionsKey = "reflections"
     
@@ -27,7 +26,7 @@ class VerseStore: ObservableObject {
     }
     
     private func saveFavorites() {
-        defaults.set(Array(favoriteVerseIDs), forKey: favoriteVerseIDsKey)
+        defaults.set(favoriteVerseIDs.sorted(), forKey: favoriteVerseIDsKey)
     }
     
     func isFavorite(_ verseID: Int) -> Bool {
@@ -51,17 +50,6 @@ class VerseStore: ObservableObject {
     func removeFavorite(_ verseID: Int) {
         favoriteVerseIDs.remove(verseID)
         saveFavorites()
-    }
-    
-    // MARK: - Last Displayed
-    
-    func getLastDisplayedVerseID() -> Int? {
-        let id = defaults.integer(forKey: lastDisplayedVerseIDKey)
-        return id == 0 ? nil : id
-    }
-    
-    func setLastDisplayedVerseID(_ id: Int) {
-        defaults.set(id, forKey: lastDisplayedVerseIDKey)
     }
     
     // MARK: - Onboarding
@@ -116,18 +104,3 @@ class VerseStore: ObservableObject {
     }
 }
 
-// MARK: - Widget Support
-
-extension VerseStore {
-    /// Get a random verse ID, optionally weighted toward favorites
-    func getRandomVerseID(from allVerseIDs: [Int]) -> Int {
-        let favoriteIDs = Array(favoriteVerseIDs)
-        
-        // 30% chance to pick from favorites if favorites exist
-        if !favoriteIDs.isEmpty && Int.random(in: 0...9) < 3 {
-            return favoriteIDs.randomElement()!
-        }
-        
-        return allVerseIDs.randomElement()!
-    }
-}
