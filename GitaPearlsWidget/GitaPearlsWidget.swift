@@ -14,11 +14,12 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (GitaEntry) -> Void) {
+        let now = Date()
         let verses = loadAllVerses()
         let collections = loadCollections()
         let favoriteIDs = loadFavoriteIDs()
-        let result = makeVerseResult(for: Date(), verses: verses, favoriteIDs: favoriteIDs, collections: collections)
-        let entry = GitaEntry(date: Date(), verse: result.verse, isFavorite: result.isFavorite, collectionNames: result.collectionNames)
+        let result = makeVerseResult(for: now, verses: verses, favoriteIDs: favoriteIDs, collections: collections)
+        let entry = GitaEntry(date: now, verse: result.verse, isFavorite: result.isFavorite, collectionNames: result.collectionNames)
         completion(entry)
     }
 
