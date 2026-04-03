@@ -7,6 +7,8 @@ struct VerseDetailView: View {
     @State private var reflectionText: String = ""
     @State private var showClearConfirmation = false
     @FocusState private var isReflectionFocused: Bool
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var autosaveTask: Task<Void, Never>? = nil
     
     var body: some View {
         ScrollView {
@@ -18,6 +20,7 @@ struct VerseDetailView: View {
                             Image(systemName: "person.circle.fill")
                                 .foregroundColor(.secondary)
                                 .font(.caption)
+                                .accessibilityHidden(true)
                             Text(speaker)
                                 .font(.caption)
                                 .fontWeight(.semibold)
@@ -68,6 +71,7 @@ struct VerseDetailView: View {
                         Image(systemName: "pencil.line")
                             .font(.caption)
                             .foregroundColor(.orange)
+                            .accessibilityHidden(true)
                         Text("My Reflection")
                             .font(.headline)
                             .foregroundColor(.primary)
@@ -103,15 +107,18 @@ struct VerseDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: shareVerse) {
+                let shareText = "\(verse.reference) — \(verse.meaning.prefix(100))... — Bhagavad Gita (Sivananda translation) via GitaPearls"
+                ShareLink(item: shareText) {
                     Image(systemName: "square.and.arrow.up")
                 }
+                .accessibilityLabel("Share Verse")
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: toggleFavorite) {
                     Image(systemName: verseStore.isFavorite(verse.id) ? "heart.fill" : "heart")
                         .foregroundColor(verseStore.isFavorite(verse.id) ? .red : .primary)
                 }
+                .accessibilityLabel(verseStore.isFavorite(verse.id) ? "Remove from Favorites" : "Add to Favorites")
             }
         }
         .onAppear {
@@ -129,22 +136,29 @@ struct VerseDetailView: View {
         } message: {
             Text("Are you sure you want to clear this reflection? This cannot be undone.")
         }
+        .onChange(of: reflectionText) { _ in
+            autosaveTask?.cancel()
+            autosaveTask = Task {
+                do {
+                    try await Task.sleep(nanoseconds: 1_500_000_000)
+                    let trimmed = reflectionText.trimmingCharacters(in: .whitespacesAndNewlines)
+                    verseStore.saveReflection(trimmed, for: verse.id)
+                } catch {
+                    // Task cancelled — skip save
+                }
+            }
+        }
+        .onChange(of: scenePhase) { phase in
+            if phase == .background || phase == .inactive {
+                autosaveTask?.cancel()
+                let trimmed = reflectionText.trimmingCharacters(in: .whitespacesAndNewlines)
+                verseStore.saveReflection(trimmed, for: verse.id)
+            }
+        }
     }
     
     private func toggleFavorite() {
         verseStore.toggleFavorite(verse.id)
-    }
-    
-    private func shareVerse() {
-        let shareText = "\(verse.reference) — \(verse.meaning.prefix(100))... — Bhagavad Gita (Sivananda translation) via GitaPearls"
-        
-        let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
-        
-        // Present the share sheet
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let rootVC = windowScene.windows.first?.rootViewController {
-            rootVC.present(activityVC, animated: true)
-        }
     }
 }
 

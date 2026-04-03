@@ -38,33 +38,25 @@ struct CollectionsView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                SearchBar(text: $searchText)
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-                
-                ScrollView {
-                    LazyVStack(spacing: 16) {
-                        ForEach(filteredCollections) { collection in
-                            NavigationLink(value: collection) {
-                                CollectionCard(collection: collection, filteredVerses: filteredVerses(for: collection), isSearching: !searchText.isEmpty)
-                            }
-                            .buttonStyle(.plain)
-                        }
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(filteredCollections) { collection in
+                    NavigationLink(value: collection) {
+                        CollectionCard(collection: collection, filteredVerses: filteredVerses(for: collection), isSearching: !searchText.isEmpty)
                     }
-                    .padding()
+                    .buttonStyle(.plain)
                 }
             }
-            .navigationTitle("Collections")
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search collections...")
-            .navigationDestination(for: Collection.self) { collection in
-                CollectionDetailView(collection: collection, allVerses: verses, searchText: searchText)
-            }
-            .onAppear {
-                loadCollections()
-                loadVerses()
-            }
+            .padding()
+        }
+        .navigationTitle("Collections")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search collections...")
+        .navigationDestination(for: Collection.self) { collection in
+            CollectionDetailView(collection: collection, allVerses: verses, searchText: searchText)
+        }
+        .onAppear {
+            loadCollections()
+            loadVerses()
         }
     }
     

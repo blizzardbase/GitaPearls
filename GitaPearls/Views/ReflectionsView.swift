@@ -29,51 +29,40 @@ struct ReflectionsView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                SearchBar(text: $searchText)
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-                
-                ScrollView {
-                    if filteredVerses.isEmpty {
-                        VStack(spacing: 16) {
-                            Image(systemName: searchText.isEmpty ? "pencil.line" : "magnifyingglass")
-                                .font(.system(size: 48))
-                                .foregroundColor(.secondary)
-                            
-                            Text(searchText.isEmpty ? "No Reflections Yet" : "No Matching Reflections")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            
-                            Text(searchText.isEmpty ? "Open any verse and write your reflection to see it here." : "Try a different search term.")
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 32)
+        ScrollView {
+            if filteredVerses.isEmpty {
+                VStack(spacing: 16) {
+                    Image(systemName: searchText.isEmpty ? "pencil.line" : "magnifyingglass")
+                        .font(.system(size: 48))
+                        .foregroundColor(.secondary)
+
+                    Text(searchText.isEmpty ? "No Reflections Yet" : "No Matching Reflections")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+
+                    Text(searchText.isEmpty ? "Open any verse and write your reflection to see it here." : "Try a different search term.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                }
+                .padding(.top, 60)
+            } else {
+                LazyVStack(spacing: 16) {
+                    ForEach(filteredVerses) { verse in
+                        NavigationLink(value: verse) {
+                            ReflectionCard(verse: verse, reflection: getReflection(for: verse))
                         }
-                        .padding(.top, 60)
-                    } else {
-                        LazyVStack(spacing: 16) {
-                            ForEach(filteredVerses) { verse in
-                                NavigationLink(value: verse) {
-                                    ReflectionCard(verse: verse, reflection: getReflection(for: verse))
-                                }
-                                .buttonStyle(.plain)
-                            }
-                        }
-                        .padding()
+                        .buttonStyle(.plain)
                     }
                 }
+                .padding()
             }
-            .navigationTitle("My Reflections")
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search reflections...")
-            .navigationDestination(for: Verse.self) { verse in
-                VerseDetailView(verse: verse)
-            }
-            .onAppear {
-                loadVerses()
-            }
+        }
+        .navigationTitle("My Reflections")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search reflections...")
+        .onAppear {
+            loadVerses()
         }
     }
     
