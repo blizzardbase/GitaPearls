@@ -32,6 +32,9 @@
 		000000000000000000000028 /* ReflectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000322 /* ReflectionsView.swift */; };
 		000000000000000000000029 /* SeededRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000212 /* SeededRandom.swift */; };
 		26CD668E2F7EA45500C6FCE1 /* SeededRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000212 /* SeededRandom.swift */; };
+		AA00000000000000000000B1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000A1 /* PrivacyInfo.xcprivacy */; };
+		AA00000000000000000000B2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000A1 /* PrivacyInfo.xcprivacy */; };
+		AA00000000000000000000B3 /* collections.json in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000231 /* collections.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,7 @@
 		000000000000000000000810 /* GitaPearls.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitaPearls.entitlements; sourceTree = "<group>"; };
 		000000000000000000000820 /* GitaPearlsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitaPearlsWidgetExtension.entitlements; sourceTree = "<group>"; };
 		000000000000000000000830 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA00000000000000000000A1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -104,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000810 /* GitaPearls.entitlements */,
+				AA00000000000000000000A1 /* PrivacyInfo.xcprivacy */,
 				000000000000000000000110 /* GitaPearlsApp.swift */,
 				000000000000000000000111 /* ContentView.swift */,
 				000000000000000000000D10 /* Models */,
@@ -270,6 +275,7 @@
 				00000000000000000000001B /* Assets.xcassets in Resources */,
 				000000000000000000000015 /* verses.json in Resources */,
 				000000000000000000000027 /* collections.json in Resources */,
+				AA00000000000000000000B1 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +285,8 @@
 			files = (
 				000000000000000000000023 /* Assets.xcassets in Resources */,
 				000000000000000000000016 /* verses.json in Resources */,
+				AA00000000000000000000B3 /* collections.json in Resources */,
+				AA00000000000000000000B2 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

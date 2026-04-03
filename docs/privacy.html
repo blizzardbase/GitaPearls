@@ -101,7 +101,7 @@
     <div class="container">
         <h1>Privacy Policy</h1>
         <p class="subtitle">GitaPearls — Bhagavad Gita Verses Widget App</p>
-        <p class="subtitle">Last updated: March 30, 2026</p>
+        <p class="subtitle">Last updated: April 4, 2026</p>
 
         <h2>Overview</h2>
         <p>
@@ -128,10 +128,26 @@
         <ul style="margin-left: 20px; margin-bottom: 15px;">
             <li><strong>Your favorite verses</strong> — Saved as a list of verse IDs in your device's UserDefaults (local storage only)</li>
             <li><strong>Onboarding status</strong> — A simple flag to know if you've seen the setup instructions</li>
+            <li><strong>Personal reflections</strong> — Notes you write on individual verses are saved locally on your device using UserDefaults via an App Group shared between the app and widget extension</li>
         </ul>
         <p>
-            This data never leaves your device. It's not synced to iCloud, not sent to any server, 
-            and not accessible by us or any third party.
+            All of this data stays on your device. It is never transmitted to any server, never synced
+            to iCloud, and is not accessible by us or any third party. Your personal reflections
+            never leave your device under any circumstances.
+        </p>
+
+        <h2>Personal Reflections</h2>
+        <p>
+            GitaPearls allows you to write personal reflections on any verse. These notes are:
+        </p>
+        <ul style="margin-left: 20px; margin-bottom: 15px;">
+            <li>Stored entirely on your device using Apple's UserDefaults storage</li>
+            <li>Shared between the app and its widget extension via an iOS App Group (this is a local on-device mechanism, not a network transfer)</li>
+            <li>Never transmitted to any server or external service</li>
+            <li>Never accessible to anyone other than you</li>
+        </ul>
+        <p>
+            If you delete the app, your reflections will be removed from your device along with all other app data.
         </p>
 
         <h2>How the App Works</h2>
