@@ -131,9 +131,10 @@
             <li><strong>Personal reflections</strong> — Notes you write on individual verses are saved locally on your device using UserDefaults via an App Group shared between the app and widget extension</li>
         </ul>
         <p>
-            All of this data stays on your device. It is never transmitted to any server, never synced
-            to iCloud, and is not accessible by us or any third party. Your personal reflections
-            never leave your device under any circumstances.
+            All of this data is stored locally on your device. It is never transmitted to any server
+            we operate, never synced to iCloud, and is not accessible by us or any third party.
+            However, like most app data stored in UserDefaults, it may be included in iCloud device
+            backups if you have iCloud Backup enabled on your device (see Personal Reflections below).
         </p>
 
         <h2>Personal Reflections</h2>
@@ -141,13 +142,22 @@
             GitaPearls allows you to write personal reflections on any verse. These notes are:
         </p>
         <ul style="margin-left: 20px; margin-bottom: 15px;">
-            <li>Stored entirely on your device using Apple's UserDefaults storage</li>
-            <li>Shared between the app and its widget extension via an iOS App Group (this is a local on-device mechanism, not a network transfer)</li>
-            <li>Never transmitted to any server or external service</li>
-            <li>Never accessible to anyone other than you</li>
+            <li>Stored on your device using Apple's UserDefaults storage via an iOS App Group</li>
+            <li>Shared between the app and its widget extension locally (not a network transfer)</li>
+            <li>Not synced to iCloud — they do not appear in iCloud Drive or any iCloud-synced storage</li>
+            <li>Not transmitted to any server we operate</li>
+            <li>May be included in iCloud device backups if you have iCloud Backup enabled, meaning Apple's backup servers may receive a copy as part of your overall device backup</li>
         </ul>
         <p>
-            If you delete the app, your reflections will be removed from your device along with all other app data.
+            To prevent reflections from being backed up, you can disable iCloud Backup for GitaPearls
+            in Settings → [Your Name] → iCloud → iCloud Backup → Manage Backups, or turn off
+            iCloud Backup entirely.
+        </p>
+        <p>
+            If you delete the app, your reflections will be removed from your device along with all
+            other local app data. Deleting the app does not remove any data already included in
+            existing iCloud backups — those backups persist until you manage or delete them in
+            your iCloud settings.
         </p>
 
         <h2>How the App Works</h2>
