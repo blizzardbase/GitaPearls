@@ -125,6 +125,7 @@ struct VerseDetailView: View {
             reflectionText = verseStore.getReflection(for: verse.id) ?? ""
         }
         .onDisappear {
+            autosaveTask?.cancel()
             let trimmed = reflectionText.trimmingCharacters(in: .whitespacesAndNewlines)
             verseStore.saveReflection(trimmed, for: verse.id)
         }
