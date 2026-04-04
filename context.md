@@ -1,10 +1,15 @@
 # GitaPearls — Project Context
 
 ## Current Status (2026-04-05)
-- **Code complete and App Store ready** — all 11 issues from independent review fixed and merged
-- All 3 agent PRs merged to main (PR #1 privacy/config, PR #2 data/widget, PR #3 views/navigation)
-- See `BUGFIX-PLAN.md` for full fix details
-- **Next steps**: Screenshots → Archive & Upload → App Store Connect listing
+- **App Store ready** — all 11 review issues fixed, simulator testing complete, 4 additional UI fixes applied
+- All pre-submission code checks passed
+- **Next steps**: Screenshots (6.9" + 5.5") → Archive & Upload → App Store Connect listing
+
+### Additional fixes from simulator testing (2026-04-05)
+- Keyboard "Done" button added to reflection TextEditor (`VerseDetailView.swift`)
+- Skip button removed from WidgetSetupSheet (redundant with Got it)
+- Verse count corrected in Settings: "30 curated" → "150 verses across all 18 chapters"
+- Launch screen white flash fixed: AccentColor (saffron) set as background in `project.pbxproj`
 
 ## Project Overview
 iOS app with **home screen and lock screen widgets** displaying Bhagavad Gita verses from Swami Sivananda's public domain translation. **Primary use case: Home screen widgets** (Small, Medium, Large). Lock screen widgets (Rectangular + Circular ॐ pair) also supported as secondary option. Free app, no monetization. **Xcode project created and building successfully.**
@@ -344,14 +349,15 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 - ✅ Small widget font matched to medium widget
 
 **Next session — 3 steps to App Store:**
-1. **Screenshots** — need 6.9" (iPhone 16 Pro Max, 1320x2868) and 5.5" (iPhone 8 Plus, 1242x2208). Use Simulator. Need: app list, verse detail, widget on home screen, widget on lock screen.
+1. **Screenshots** — 6.9" on iPhone 17 Pro Max simulator (⌘S saves to Desktop). 5.5" needs iPhone 8 Plus added via Manage Run Destinations. Capture: verse list, verse detail, favorites, collections, widget on home screen, lock screen widget. 4-6 shots per size.
 2. **Archive & Upload** — Xcode → Product → Archive → Distribute to App Store Connect
-3. **App Store Connect listing** — fill in name, subtitle, description, keywords, screenshots, review notes, then submit. All details on the Notion checklist.
+3. **App Store Connect listing** — name, subtitle, description, keywords, screenshots, review notes, submit. All details in Notion checklist: https://www.notion.so/3327ed89602581f0bb5fd292dcf3e4c9
 
-**Pre-archive checks:**
-- Verify launch screen (no white flash)
-- Confirm Version 1.0, Build 1
-- Test on Simulator for SE and Pro Max sizes
+**All pre-archive checks done:**
+- ✅ Launch screen (saffron AccentColor, no white flash)
+- ✅ Version 1.0 / Build 1
+- ✅ Tested on iPhone 17e, 17, 17 Pro Max simulators
+- ✅ No debug code
 
 ---
 
