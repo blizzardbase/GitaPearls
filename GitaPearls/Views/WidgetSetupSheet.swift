@@ -103,13 +103,6 @@ struct WidgetSetupSheet: View {
             }
             .navigationTitle("Setup Widget")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Skip") {
-                        completeOnboarding()
-                    }
-                }
-            }
         }
     }
     

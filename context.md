@@ -1,5 +1,11 @@
 # GitaPearls — Project Context
 
+## Current Status (2026-04-05)
+- **Code complete and App Store ready** — all 11 issues from independent review fixed and merged
+- All 3 agent PRs merged to main (PR #1 privacy/config, PR #2 data/widget, PR #3 views/navigation)
+- See `BUGFIX-PLAN.md` for full fix details
+- **Next steps**: Screenshots → Archive & Upload → App Store Connect listing
+
 ## Project Overview
 iOS app with **home screen and lock screen widgets** displaying Bhagavad Gita verses from Swami Sivananda's public domain translation. **Primary use case: Home screen widgets** (Small, Medium, Large). Lock screen widgets (Rectangular + Circular ॐ pair) also supported as secondary option. Free app, no monetization. **Xcode project created and building successfully.**
 
@@ -296,11 +302,20 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 | **13e** | Device testing on Harish's iPhone | ✅ Completed (2026-04-02) — app, widgets, search, favorites, collections, reflections, dark mode all working |
 | **13f** | Privacy policy hosted on GitHub Pages | ✅ Completed (2026-04-03) — https://blizzardbase.github.io/GitaPearls/privacy.html |
 | **13g** | Repo made public | ✅ Completed (2026-04-03) — https://github.com/blizzardbase/GitaPearls |
-| **14** | App Store screenshots | ⏳ Pending |
-| **15** | Archive and upload to App Store Connect | ⏳ Pending |
-| **16** | App Store Connect listing + submit | ⏳ Pending |
+| **14a** | Privacy manifest (PrivacyInfo.xcprivacy) | ✅ Completed (2026-04-05, Agent 1 PR #1) |
+| **14b** | iPad share sheet crash fix (ShareLink) | ✅ Completed (2026-04-05, Agent 2 PR #3) |
+| **14c** | Widget deep link navigation | ✅ Completed (2026-04-05, Agent 2 PR #3) |
+| **14d** | Reflection autosave on background | ✅ Completed (2026-04-05, Agent 2 PR #3) |
+| **14e** | collections.json in widget target | ✅ Completed (2026-04-05, Agent 1 PR #1) |
+| **14f** | Widget JSON caching + favorites order fix | ✅ Completed (2026-04-05, Agent 3 PR #2) |
+| **14g** | Accessibility labels on toolbar buttons | ✅ Completed (2026-04-05, Agent 2 PR #3) |
+| **14h** | Privacy policy updated (reflections) | ✅ Completed (2026-04-05, Agent 1 PR #1) |
+| **14i** | Nav stack cleanup + dead code removal | ✅ Completed (2026-04-05, Agents 2+3) |
+| **15** | App Store screenshots | ⏳ Pending |
+| **16** | Archive and upload to App Store Connect | ⏳ Pending |
+| **17** | App Store Connect listing + submit | ⏳ Pending |
 
-**Current Status:** App is code-complete, tested on device, and ready for App Store prep. All features working.
+**Current Status:** App is code-complete, all review issues fixed, tested on device. Ready for screenshots and App Store submission.
 
 **Key facts:**
 - Bundle ID: `com.blizzardbase.gitapearls`
@@ -333,11 +348,10 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 2. **Archive & Upload** — Xcode → Product → Archive → Distribute to App Store Connect
 3. **App Store Connect listing** — fill in name, subtitle, description, keywords, screenshots, review notes, then submit. All details on the Notion checklist.
 
-**Pre-archive checks still needed:**
+**Pre-archive checks:**
 - Verify launch screen (no white flash)
-- Set Version 1.0, Build 1
+- Confirm Version 1.0, Build 1
 - Test on Simulator for SE and Pro Max sizes
-- Remove any debug/test code
 
 ---
 

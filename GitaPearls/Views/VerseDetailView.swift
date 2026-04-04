@@ -120,6 +120,12 @@ struct VerseDetailView: View {
                 }
                 .accessibilityLabel(verseStore.isFavorite(verse.id) ? "Remove from Favorites" : "Add to Favorites")
             }
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isReflectionFocused = false
+                }
+            }
         }
         .onAppear {
             reflectionText = verseStore.getReflection(for: verse.id) ?? ""
