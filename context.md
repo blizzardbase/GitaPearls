@@ -11,6 +11,13 @@
 - Verse count corrected in Settings: "30 curated" → "150 verses across all 18 chapters"
 - Launch screen white flash fixed: AccentColor (saffron) set as background in `project.pbxproj`
 
+### Frontier agent review fixes (2026-04-05)
+- PrivacyInfo.xcprivacy: reason code CA92.1 → 1C8F.1 (correct code for App Group UserDefaults)
+- SettingsSheet: added Privacy Policy link to Settings → Privacy section
+- GitaPearlsApp: suppress onboarding on widget deep link launch (launchedFromDeepLink flag)
+- ContentView: clear selectedVerseID even when verse ID invalid (graceful deep link handling)
+- Accessibility: added labels to search clear button + reflection TextEditor
+
 ## Project Overview
 iOS app with **home screen and lock screen widgets** displaying Bhagavad Gita verses from Swami Sivananda's public domain translation. **Primary use case: Home screen widgets** (Small, Medium, Large). Lock screen widgets (Rectangular + Circular ॐ pair) also supported as secondary option. Free app, no monetization. **Xcode project created and building successfully.**
 
