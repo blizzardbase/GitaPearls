@@ -5,7 +5,8 @@ struct GitaPearlsApp: App {
     @StateObject private var verseStore = VerseStore.shared
     @State private var selectedVerseID: Int?
     @State private var showOnboarding = false
-    
+    @State private var launchedFromDeepLink = false
+
     var body: some Scene {
         WindowGroup {
             ContentView(selectedVerseID: $selectedVerseID)
@@ -14,16 +15,17 @@ struct GitaPearlsApp: App {
                     handleDeepLink(url)
                 }
                 .onAppear {
-                    showOnboarding = !verseStore.hasCompletedOnboarding()
+                    if !launchedFromDeepLink {
+                        showOnboarding = !verseStore.hasCompletedOnboarding()
+                    }
                 }
                 .sheet(isPresented: $showOnboarding) {
                     WidgetSetupSheet()
                 }
         }
     }
-    
+
     private func handleDeepLink(_ url: URL) {
-        // Handle gitapearls://verse/47
         guard url.scheme == "gitapearls",
               url.host == "verse",
               let pathComponents = url.pathComponents.last,
@@ -31,6 +33,7 @@ struct GitaPearlsApp: App {
             return
         }
 
+        launchedFromDeepLink = true
         showOnboarding = false
         selectedVerseID = verseID
     }
