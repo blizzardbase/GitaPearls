@@ -30,7 +30,8 @@ struct GitaPearlsApp: App {
               let verseID = Int(pathComponents) else {
             return
         }
-        
+
+        showOnboarding = false
         selectedVerseID = verseID
     }
 }

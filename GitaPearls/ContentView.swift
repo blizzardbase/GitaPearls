@@ -100,9 +100,10 @@ struct ContentView: View {
             loadVerses()
         }
         .onChange(of: selectedVerseID) { newID in
-            guard let id = newID,
-                  let verse = verses.first(where: { $0.id == id }) else { return }
-            navigationPath.append(verse)
+            guard let id = newID else { return }
+            if let verse = verses.first(where: { $0.id == id }) {
+                navigationPath.append(verse)
+            }
             selectedVerseID = nil
         }
     }
@@ -175,6 +176,7 @@ struct SearchBar: View {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.secondary)
                 }
+                .accessibilityLabel("Clear search")
             }
         }
         .padding(10)

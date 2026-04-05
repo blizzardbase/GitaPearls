@@ -85,6 +85,7 @@ struct VerseDetailView: View {
                         .background(Color(.secondarySystemBackground))
                         .cornerRadius(8)
                         .focused($isReflectionFocused)
+                        .accessibilityLabel("My Reflection")
                     
                     if !reflectionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         Button(action: { 

@@ -45,6 +45,10 @@ struct SettingsSheet: View {
                         Label("No third-party SDKs", systemImage: "checkmark.shield")
                     }
                     .font(.body)
+
+                    Link(destination: URL(string: "https://blizzardbase.github.io/GitaPearls/privacy.html")!) {
+                        Label("Privacy Policy", systemImage: "doc.text")
+                    }
                 }
             }
             .navigationTitle("Settings")
