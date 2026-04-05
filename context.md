@@ -3,7 +3,8 @@
 ## Current Status (2026-04-05)
 - **App Store ready** — all 11 review issues fixed, simulator testing complete, 4 additional UI fixes applied
 - All pre-submission code checks passed
-- **Next steps**: Screenshots (6.9" + 5.5") → Archive & Upload → App Store Connect listing
+- **SUBMITTED TO APP STORE** — Apr 5, 2026 at 1:22 PM, Build 1.0 (3), Submission ID: 10fbd97f-5058-4934-9a0a-4f6652eb0c4f
+- Status: Waiting for Review (24-48 hours typical)
 
 ### Additional fixes from simulator testing (2026-04-05)
 - Keyboard "Done" button added to reflection TextEditor (`VerseDetailView.swift`)
