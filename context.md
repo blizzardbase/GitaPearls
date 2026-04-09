@@ -1,10 +1,11 @@
 # GitaPearls — Project Context
 
-## Current Status (2026-04-05)
-- **App Store ready** — all 11 review issues fixed, simulator testing complete, 4 additional UI fixes applied
-- All pre-submission code checks passed
-- **SUBMITTED TO APP STORE** — Apr 5, 2026 at 1:22 PM, Build 1.0 (3), Submission ID: 10fbd97f-5058-4934-9a0a-4f6652eb0c4f
-- Status: Waiting for Review (24-48 hours typical)
+## Current Status (2026-04-09)
+- **LIVE ON THE APP STORE** — Approved Apr 9, 2026 at 2:50 AM. Auto-release enabled.
+- Build 1.0 (3)
+- Available in 148 countries/regions
+- Free app, no monetization
+- First submission Apr 5 → Rejected Apr 8 (Kids Category mistake) → Resubmitted Apr 8 → Approved Apr 9
 
 ### Additional fixes from simulator testing (2026-04-05)
 - Keyboard "Done" button added to reflection TextEditor (`VerseDetailView.swift`)
@@ -324,11 +325,14 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 | **14g** | Accessibility labels on toolbar buttons | ✅ Completed (2026-04-05, Agent 2 PR #3) |
 | **14h** | Privacy policy updated (reflections) | ✅ Completed (2026-04-05, Agent 1 PR #1) |
 | **14i** | Nav stack cleanup + dead code removal | ✅ Completed (2026-04-05, Agents 2+3) |
-| **15** | App Store screenshots | ⏳ Pending |
-| **16** | Archive and upload to App Store Connect | ⏳ Pending |
-| **17** | App Store Connect listing + submit | ⏳ Pending |
+| **15** | App Store screenshots | ✅ Completed (2026-04-05) |
+| **16** | Archive and upload to App Store Connect | ✅ Completed (2026-04-05) |
+| **17** | App Store Connect listing + submit | ✅ Completed (2026-04-05) |
+| **18** | App Store review — first rejection (Kids Category) | ✅ Resolved (2026-04-08) |
+| **19** | Resubmission + approval | ✅ Approved (2026-04-09) |
+| **20** | **App is LIVE on App Store** | ✅ Live (2026-04-09) |
 
-**Current Status:** App is code-complete, all review issues fixed, tested on device. Ready for screenshots and App Store submission.
+**Current Status:** App is LIVE on the App Store as of Apr 9, 2026.
 
 **Key facts:**
 - Bundle ID: `com.blizzardbase.gitapearls`
@@ -356,16 +360,16 @@ All widget views include `PreviewProvider` implementations for testing in Xcode 
 - ✅ containerBackground for iOS 17+ widget compatibility
 - ✅ Small widget font matched to medium widget
 
-**Next session — 3 steps to App Store:**
-1. **Screenshots** — 6.9" on iPhone 17 Pro Max simulator (⌘S saves to Desktop). 5.5" needs iPhone 8 Plus added via Manage Run Destinations. Capture: verse list, verse detail, favorites, collections, widget on home screen, lock screen widget. 4-6 shots per size.
-2. **Archive & Upload** — Xcode → Product → Archive → Distribute to App Store Connect
-3. **App Store Connect listing** — name, subtitle, description, keywords, screenshots, review notes, submit. All details in Notion checklist: https://www.notion.so/3327ed89602581f0bb5fd292dcf3e4c9
+**App Store timeline:**
+- Apr 5 — First submission (Build 1.0 (3))
+- Apr 7-8 — Review → Rejected (Guideline 1.3 — Kids Category selected by mistake)
+- Apr 8 — Fixed (removed Kids Category, age rating 4+), resubmitted same build
+- Apr 9 — Approved at 2:50 AM, auto-released, available in 148 countries
 
-**All pre-archive checks done:**
-- ✅ Launch screen (saffron AccentColor, no white flash)
-- ✅ Version 1.0 / Build 1
-- ✅ Tested on iPhone 17e, 17, 17 Pro Max simulators
-- ✅ No debug code
+**Next: Phase 2 (Future features)**
+- Sanskrit audio playback
+- Multiple translation comparison
+- Chapter Journey — guided sequential reading with progress tracking
 
 ---
 
